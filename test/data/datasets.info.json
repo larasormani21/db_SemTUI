@@ -1,0 +1,13 @@
+{
+  "meta": {
+    "lastIndex": 0
+  },
+  "datasets": {
+    "": {
+      "id": "0",
+      "userId": 1,
+      "name": "Demo Dataset",
+      "description": "Dataset di test per una tabella piccola"
+    }
+  }
+}

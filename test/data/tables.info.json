@@ -1,0 +1,16 @@
+{
+  "meta": {
+    "lastIndex": 0
+  },
+  "tables": {
+    "0": {
+      "id": "0",
+      "idDataset": "1",
+      "name": "country_data",
+      "nCols": 0,
+      "nRows": 0,
+      "nCells": 0,
+      "nCellsReconciliated": 0
+    }
+  }
+}

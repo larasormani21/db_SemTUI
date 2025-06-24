@@ -75,10 +75,20 @@ RETURNS TRIGGER AS $$
 DECLARE
   col_table_id INTEGER;
 BEGIN
-  IF (TG_OP = 'DELETE') THEN
-    SELECT table_id INTO col_table_id FROM columns WHERE id = OLD.id;
-  ELSE
-    col_table_id := COALESCE(NEW.table_id, OLD.table_id);
+  -- Se il trigger è su columns, usa direttamente table_id
+  IF TG_TABLE_NAME = 'columns' THEN
+    IF (TG_OP = 'DELETE') THEN
+      col_table_id := OLD.table_id;
+    ELSE
+      col_table_id := COALESCE(NEW.table_id, OLD.table_id);
+    END IF;
+  -- Se il trigger è su reconciliation_results, risali da column_id
+  ELSIF TG_TABLE_NAME = 'reconciliation_results' THEN
+    IF (TG_OP = 'DELETE') THEN
+      SELECT table_id INTO col_table_id FROM columns WHERE id = OLD.column_id;
+    ELSE
+      SELECT table_id INTO col_table_id FROM columns WHERE id = COALESCE(NEW.column_id, OLD.column_id);
+    END IF;
   END IF;
 
   IF col_table_id IS NULL THEN
@@ -126,7 +136,7 @@ AFTER INSERT OR UPDATE OF status OR DELETE ON columns
 FOR EACH STATEMENT
 EXECUTE FUNCTION update_table_stats();
 
-CREATE TRIGGER trg_update_table_stats_on_columns
+CREATE TRIGGER trg_update_table_stats_on_columns_1
 AFTER INSERT OR UPDATE OR DELETE ON columns
 FOR EACH ROW
 EXECUTE FUNCTION update_table_stats();

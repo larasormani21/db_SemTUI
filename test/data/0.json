@@ -1,0 +1,438 @@
+{
+  "columns": {
+    "Country": {
+      "id": "Country",
+      "label": "Country",
+      "status": "reconciliated",
+      "context": {
+        "wd": {
+          "prefix": "wd:",
+          "uri": "https://www.wikidata.org/entity/",
+          "total": 6,
+          "reconciliated": 6
+        }
+      },
+      "metadata": [
+        {
+          "id": "wd:Q38",
+          "name": "Italy",
+          "type": [
+            {
+              "id": "wd:Q3624078",
+              "match": false,
+              "name": "sovereign state",
+              "score": 0.919
+            },
+            {
+              "id": "wd:Q6256",
+              "match": false,
+              "name": "country",
+              "score": 0.919
+            }
+          ],
+          "property": []
+        }
+      ],
+      "annotationMeta": {
+        "annotated": true,
+        "match": {
+          "value": false
+        },
+        "lowestScore": 0,
+        "highestScore": 0
+      },
+      "kind": "entity"
+    },
+    "Continent": {
+      "id": "Continent",
+      "label": "Continent",
+      "status": "empty",
+      "context": {},
+      "metadata": [],
+      "annotationMeta": {
+        "annotated": false,
+        "match": {
+          "value": false
+        },
+        "lowestScore": 0,
+        "highestScore": 0
+      },
+      "kind": "literal"
+    },
+    "Government Type": {
+      "id": "Government Type",
+      "label": "Government Type",
+      "status": "empty",
+      "context": {},
+      "metadata": [],
+      "annotationMeta": {
+        "annotated": false,
+        "match": {
+          "value": false
+        },
+        "lowestScore": 0,
+        "highestScore": 0
+      },
+      "kind": "literal"
+    },
+    "GDP Category": {
+      "id": "GDP Category",
+      "label": "GDP Category",
+      "status": "empty",
+      "context": {},
+      "metadata": [],
+      "annotationMeta": {
+        "annotated": false,
+        "match": {
+          "value": false
+        },
+        "lowestScore": 0,
+        "highestScore": 0
+      },
+      "kind": "literal"
+    }
+  },
+  "rows": {
+    "rows": {
+  "r0": {
+    "id": "r0",
+    "cells": {
+      "Country": {
+        "id": "r0$Country",
+        "label": "Italy",
+        "metadata": [
+          {
+            "id": "wd:Q38",
+            "match": true,
+            "name": {
+              "value": "Italy",
+              "uri": "https://www.wikidata.org/wiki/Q38"
+            },
+            "score": 0.98
+          }
+        ],
+        "annotationMeta": {
+          "annotated": true,
+          "match": {
+            "value": true,
+            "reason": "reconciliator"
+          },
+          "lowestScore": 98,
+          "highestScore": 98
+        }
+      },
+      "Continent": {
+        "id": "r0$Continent",
+        "label": "Europe",
+        "metadata": [],
+        "annotationMeta": {
+          "match": { "value": false },
+          "lowestScore": 0,
+          "highestScore": 0
+        }
+      },
+      "Government Type": {
+        "id": "r0$Government Type",
+        "label": "Republic",
+        "metadata": [],
+        "annotationMeta": {
+          "match": { "value": false },
+          "lowestScore": 0,
+          "highestScore": 0
+        }
+      },
+      "GDP Category": {
+        "id": "r0$GDP Category",
+        "label": "High",
+        "metadata": [],
+        "annotationMeta": {
+          "match": { "value": false },
+          "lowestScore": 0,
+          "highestScore": 0
+        }
+      }
+    }
+  },
+  "r1": {
+    "id": "r1",
+    "cells": {
+      "Country": {
+        "id": "r1$Country",
+        "label": "France",
+        "metadata": [
+          {
+            "id": "wd:Q142",
+            "match": true,
+            "name": {
+              "value": "France",
+              "uri": "https://www.wikidata.org/wiki/Q142"
+            },
+            "score": 0.97
+          }
+        ],
+        "annotationMeta": {
+          "annotated": true,
+          "match": { "value": true, "reason": "reconciliator" },
+          "lowestScore": 97,
+          "highestScore": 97
+        }
+      },
+      "Continent": {
+        "id": "r1$Continent",
+        "label": "Europe",
+        "metadata": [],
+        "annotationMeta": {
+          "match": { "value": false },
+          "lowestScore": 0,
+          "highestScore": 0
+        }
+      },
+      "Government Type": {
+        "id": "r1$Government Type",
+        "label": "Republic",
+        "metadata": [],
+        "annotationMeta": {
+          "match": { "value": false },
+          "lowestScore": 0,
+          "highestScore": 0
+        }
+      },
+      "GDP Category": {
+        "id": "r1$GDP Category",
+        "label": "High",
+        "metadata": [],
+        "annotationMeta": {
+          "match": { "value": false },
+          "lowestScore": 0,
+          "highestScore": 0
+        }
+      }
+    }
+  },
+  "r2": {
+    "id": "r2",
+    "cells": {
+      "Country": {
+        "id": "r2$Country",
+        "label": "Germany",
+        "metadata": [
+          {
+            "id": "wd:Q183",
+            "match": true,
+            "name": {
+              "value": "Germany",
+              "uri": "https://www.wikidata.org/wiki/Q183"
+            },
+            "score": 0.96
+          }
+        ],
+        "annotationMeta": {
+          "annotated": true,
+          "match": { "value": true, "reason": "reconciliator" },
+          "lowestScore": 96,
+          "highestScore": 96
+        }
+      },
+      "Continent": {
+        "id": "r2$Continent",
+        "label": "Europe",
+        "metadata": [],
+        "annotationMeta": {
+          "match": { "value": false },
+          "lowestScore": 0,
+          "highestScore": 0
+        }
+      },
+      "Government Type": {
+        "id": "r2$Government Type",
+        "label": "Republic",
+        "metadata": [],
+        "annotationMeta": {
+          "match": { "value": false },
+          "lowestScore": 0,
+          "highestScore": 0
+        }
+      },
+      "GDP Category": {
+        "id": "r2$GDP Category",
+        "label": "High",
+        "metadata": [],
+        "annotationMeta": {
+          "match": { "value": false },
+          "lowestScore": 0,
+          "highestScore": 0
+        }
+      }
+    }
+  },
+  "r3": {
+    "id": "r3",
+    "cells": {
+      "Country": {
+        "id": "r3$Country",
+        "label": "Brazil",
+        "metadata": [
+          {
+            "id": "wd:Q155",
+            "match": true,
+            "name": {
+              "value": "Brazil",
+              "uri": "https://www.wikidata.org/wiki/Q155"
+            },
+            "score": 0.95
+          }
+        ],
+        "annotationMeta": {
+          "annotated": true,
+          "match": { "value": true, "reason": "reconciliator" },
+          "lowestScore": 95,
+          "highestScore": 95
+        }
+      },
+      "Continent": {
+        "id": "r3$Continent",
+        "label": "South America",
+        "metadata": [],
+        "annotationMeta": {
+          "match": { "value": false },
+          "lowestScore": 0,
+          "highestScore": 0
+        }
+      },
+      "Government Type": {
+        "id": "r3$Government Type",
+        "label": "Republic",
+        "metadata": [],
+        "annotationMeta": {
+          "match": { "value": false },
+          "lowestScore": 0,
+          "highestScore": 0
+        }
+      },
+      "GDP Category": {
+        "id": "r3$GDP Category",
+        "label": "Medium",
+        "metadata": [],
+        "annotationMeta": {
+          "match": { "value": false },
+          "lowestScore": 0,
+          "highestScore": 0
+        }
+      }
+    }
+  },
+  "r4": {
+    "id": "r4",
+    "cells": {
+      "Country": {
+        "id": "r4$Country",
+        "label": "India",
+        "metadata": [
+          {
+            "id": "wd:Q668",
+            "match": true,
+            "name": {
+              "value": "India",
+              "uri": "https://www.wikidata.org/wiki/Q668"
+            },
+            "score": 0.94
+          }
+        ],
+        "annotationMeta": {
+          "annotated": true,
+          "match": { "value": true, "reason": "reconciliator" },
+          "lowestScore": 94,
+          "highestScore": 94
+        }
+      },
+      "Continent": {
+        "id": "r4$Continent",
+        "label": "Asia",
+        "metadata": [],
+        "annotationMeta": {
+          "match": { "value": false },
+          "lowestScore": 0,
+          "highestScore": 0
+        }
+      },
+      "Government Type": {
+        "id": "r4$Government Type",
+        "label": "Republic",
+        "metadata": [],
+        "annotationMeta": {
+          "match": { "value": false },
+          "lowestScore": 0,
+          "highestScore": 0
+        }
+      },
+      "GDP Category": {
+        "id": "r4$GDP Category",
+        "label": "Medium",
+        "metadata": [],
+        "annotationMeta": {
+          "match": { "value": false },
+          "lowestScore": 0,
+          "highestScore": 0
+        }
+      }
+    }
+  },
+  "r5": {
+    "id": "r5",
+    "cells": {
+      "Country": {
+        "id": "r5$Country",
+        "label": "South Africa",
+        "metadata": [
+          {
+            "id": "wd:Q258",
+            "match": true,
+            "name": {
+              "value": "South Africa",
+              "uri": "https://www.wikidata.org/wiki/Q258"
+            },
+            "score": 0.93
+          }
+        ],
+        "annotationMeta": {
+          "annotated": true,
+          "match": { "value": true, "reason": "reconciliator" },
+          "lowestScore": 93,
+          "highestScore": 93
+        }
+      },
+      "Continent": {
+        "id": "r5$Continent",
+        "label": "Africa",
+        "metadata": [],
+        "annotationMeta": {
+          "match": { "value": false },
+          "lowestScore": 0,
+          "highestScore": 0
+        }
+      },
+      "Government Type": {
+        "id": "r5$Government Type",
+        "label": "Republic",
+        "metadata": [],
+        "annotationMeta": {
+          "match": { "value": false },
+          "lowestScore": 0,
+          "highestScore": 0
+        }
+      },
+      "GDP Category": {
+        "id": "r5$GDP Category",
+        "label": "Low",
+        "metadata": [],
+        "annotationMeta": {
+          "match": { "value": false },
+          "lowestScore": 0,
+          "highestScore": 0
+        }
+      }
+    }
+  }
+}
+  }
+}
