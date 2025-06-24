@@ -12,7 +12,8 @@ CREATE TABLE datasets (
     user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
     name TEXT NOT NULL,
     description TEXT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE(user_id, name)
 );
 
 -- 3. Tabelle contenute in un dataset
@@ -25,7 +26,8 @@ CREATE TABLE tables (
     num_cells INTEGER NOT NULL,
     num_cells_reconciliated INTEGER NOT NULL,
     last_modified_date TIMESTAMP,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE(dataset_id, name)
 );
 
 -- 4. Colonne per ciascuna tabella
@@ -37,7 +39,8 @@ CREATE TABLE columns (
     context JSONB DEFAULT '{}',
     is_entity BOOLEAN DEFAULT FALSE,
     metadata JSONB DEFAULT '[]',
-    annotation_meta JSONB DEFAULT '{}'
+    annotation_meta JSONB DEFAULT '{}',
+    UNIQUE (table_id, name)
 );
 
 -- 5. Risultati di riconciliazione (una riga per cella)
@@ -50,7 +53,8 @@ CREATE TABLE reconciliation_results (
     best_match_label TEXT,
     score REAL,
     candidates JSONB DEFAULT '[]',
-    annotation_meta JSONB DEFAULT '{}'
+    annotation_meta JSONB DEFAULT '{}', 
+    UNIQUE (column_id, row_index)
 );
 
 -- 6. Estensioni per risultati di riconciliazione (serie temporali, proprietà multiple, etc.)
@@ -128,7 +132,7 @@ $$ LANGUAGE plpgsql;
 
 CREATE TRIGGER trg_update_table_stats
 AFTER INSERT OR UPDATE OR DELETE ON reconciliation_results
-FOR EACH STATEMENT
+FOR EACH ROW
 EXECUTE FUNCTION update_table_stats();
 
 CREATE TRIGGER trg_update_table_stats_on_columns

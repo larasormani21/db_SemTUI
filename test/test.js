@@ -1,11 +1,12 @@
 import fs from 'fs/promises';
 import path from 'path';
 import bcrypt from 'bcrypt';
-import { getUserByUsername, createUser } from '../db/users.js';
-import { createDataset } from '../db/datasets.js';
-import { createTable } from '../db/tables.js';
+import { loginUser, getUserByUsername, createUser, getAllUsers, getUserById, updateUserPassword} from '../db/users.js';
+import { createDataset, getAllDatasets, getDatasetById, getDatasetByName, getDatasetByNameAndUser, getDatasetsByUserId, updateDataset } from '../db/datasets.js';
+import { createTable, getTableById, getTablesByDatasetId, getTablesByNameAndUser, updateTableName, printTableByTableId } from '../db/tables.js';
 import { createColumn } from '../db/column.js';
-import { createResult } from '../db/reconciliation_results.js';
+import { createResult, updateCellLabel } from '../db/reconciliation_results.js';
+import { get } from 'http';
 
 
 const dataDir = path.resolve('./test/data');
@@ -99,11 +100,20 @@ async function processColumnsAndResults() {
   }
 }
 
+async function testQueries() {
+  console.time('Tempo di esecuzione');
+  const results = await updateCellLabel(1, "Sam");
+  console.timeEnd('Tempo di esecuzione');
+  console.log(results);
+}
+
 async function run() {
   // await processUsers();
   // await processDatasets();
   //await processTables();
-  await processColumnsAndResults();
+  //await processColumnsAndResults();
+  await testQueries();
+  await printTableByTableId(1);
 }
 
 run().catch(console.error);
