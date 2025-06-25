@@ -109,6 +109,15 @@
               "uri": "https://www.wikidata.org/wiki/Q38"
             },
             "score": 0.98
+          },
+          {
+            "id": "wd:Q495",
+            "match": false,
+            "name": {
+              "value": "Italian Republic",
+              "uri": "https://www.wikidata.org/wiki/Q495"
+            },
+            "score": 0.85
           }
         ],
         "annotationMeta": {

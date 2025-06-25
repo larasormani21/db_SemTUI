@@ -1,0 +1,144 @@
+{
+  "meta": [
+    {
+      "id": "capital",
+      "name": "Capital",
+      "type": {
+        "id": "entity",
+        "name": "Entity"
+      },
+      "service": "https://wikidata.org/api/reconcile"
+    },
+    {
+      "id": "currencyCode",
+      "name": "Currency Code"
+    },
+    {
+      "id": "independenceYears",
+      "name": "Independence Years",
+      "type": {
+        "id": "time_series",
+        "name": "Time Series"
+      }
+    }
+  ],
+  "rows": {
+    "Q38": {
+      "capital": [
+        {
+          "id": "Q220",
+          "name": "Rome"
+        }
+      ],
+      "currencyCode": [
+        {
+          "str": "EUR"
+        }
+      ],
+      "independenceYears": [
+        {
+          "str": "1861"
+        },
+        {
+          "str": "1946"
+        }
+      ]
+    },
+    "Q142": {
+      "capital": [
+        {
+          "id": "Q90",
+          "name": "Paris"
+        }
+      ],
+      "currencyCode": [
+        {
+          "str": "EUR"
+        }
+      ],
+      "independenceYears": [
+        {
+          "str": "843"
+        },
+        {
+          "str": "1958"
+        }
+      ]
+    },
+    "Q183": {
+      "capital": [
+        {
+          "id": "Q64",
+          "name": "Berlin"
+        }
+      ],
+      "currencyCode": [
+        {
+          "str": "EUR"
+        }
+      ],
+      "independenceYears": [
+        {
+          "str": "1871"
+        },
+        {
+          "str": "1990"
+        }
+      ]
+    },
+    "Q155": {
+      "capital": [
+        {
+          "id": "Q2844",
+          "name": "Brazilia"
+        }
+      ],
+      "currencyCode": [
+        {
+          "str": "BRL"
+        }
+      ],
+      "independenceYears": [
+        {
+          "str": "1822"
+        }
+      ]
+    },
+    "Q668": {
+      "capital": [
+        {
+          "id": "Q987",
+          "name": "New Delhi"
+        }
+      ],
+      "currencyCode": [
+        {
+          "str": "INR"
+        }
+      ],
+      "independenceYears": [
+        {
+          "str": "1947"
+        }
+      ]
+    },
+    "Q258": {
+      "capital": [
+        {
+          "id": "Q3926",
+          "name": "Pretoria"
+        }
+      ],
+      "currencyCode": [
+        {
+          "str": "ZAR"
+        }
+      ],
+      "independenceYears": [
+        {
+          "str": "1961"
+        }
+      ]
+    }
+  }
+}

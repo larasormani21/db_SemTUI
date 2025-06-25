@@ -4,8 +4,13 @@ import bcrypt from 'bcrypt';
 import { loginUser, getUserByUsername, createUser, getAllUsers, getUserById, updateUserPassword} from '../db/users.js';
 import { createDataset, getAllDatasets, getDatasetById, getDatasetByName, getDatasetByNameAndUser, getDatasetsByUserId, updateDataset } from '../db/datasets.js';
 import { createTable, getTableById, getTablesByDatasetId, getTablesByNameAndUser, updateTableName, printTableByTableId } from '../db/tables.js';
-import { createColumn } from '../db/column.js';
-import { createResult, updateCellLabel } from '../db/reconciliation_results.js';
+import { getAllColumns, createColumn, deleteColumn, getColumnById } from '../db/column.js';
+import { createResult, updateCellLabel, updateReconciliationResultById, 
+  getResultsWithMinScore, getResultsWithMinScoreByColumnId, getResultById, getCandidatesWithMinScore,
+  getCandidatesWithMinScoreByColumnId,
+  getIdByColumnIdAndRow,
+  getResultsByColumnId, getCandidatesByCellId
+} from '../db/reconciliation_results.js';
 import { get } from 'http';
 
 
@@ -91,8 +96,8 @@ async function processColumnsAndResults() {
         cell.metadata && cell.metadata[0] && cell.metadata[0].name && cell.metadata[0].name.uri ? cell.metadata[0].name.uri : null,
         cell.metadata && cell.metadata[0] && cell.metadata[0].name && cell.metadata[0].name.value ? cell.metadata[0].name.value : null,
         cell.metadata && cell.metadata[0] && cell.metadata[0].score ? cell.metadata[0].score : null,
-        cell.metadata ? JSON.stringify(cell.metadata) : '[]',
-        cell.annotationMeta ? JSON.stringify(cell.annotationMeta) : '{}'
+        cell.metadata ? cell.metadata : '[]',
+        cell.annotationMeta ? cell.annotationMeta : '{}'
       );
     }
   }
@@ -100,20 +105,79 @@ async function processColumnsAndResults() {
   }
 }
 
+async function processExtensionJson(tableId, extensionFilePath) {
+  const extContent = await fs.readFile(extensionFilePath, 'utf-8');
+  const extJson = JSON.parse(extContent);
+
+  // 1. Popola columns
+  const columnIds = {};
+  const columnMetas = {};
+  for (const meta of extJson.meta) {
+    let isEntity = !!meta.type;
+    let metadata = [meta]; // inserisci l'intero oggetto meta in un array
+    const col = await createColumn(
+      tableId,
+      meta.id,
+      null, // status
+      {},   // context
+      isEntity,
+      metadata,
+      {}    // annotationMeta: sempre vuoto
+    );
+    columnIds[meta.id] = col.id;
+    columnMetas[meta.id] = meta;
+  }
+
+  // 2. Popola reconciliation_results
+  let rowIndex = 0;
+  for (const [qid, props] of Object.entries(extJson.rows)) {
+    for (const [property, values] of Object.entries(props)) {
+      const columnId = columnIds[property];
+      const meta = columnMetas[property];
+      const isEntity = !!(meta && meta.type);
+      if (!columnId || !Array.isArray(values) || values.length === 0) continue;
+
+      const first = values[0];
+      let cellValue = first.name || first.str || first.id || '';
+      let bestMatchUri = null;
+      let bestMatchLabel = null;
+
+      if (isEntity) {
+        bestMatchUri = first.id || null;
+        bestMatchLabel = first.name || null;
+      }
+
+      await createResult(
+        columnId,
+        rowIndex,
+        cellValue,
+        bestMatchUri,
+        bestMatchLabel,
+        null,           // score
+        values,         // candidates: l'intero array della colonna
+        {}              // annotationMeta: sempre vuoto
+      );
+    }
+    rowIndex++;
+  }
+}
+
 async function testQueries() {
   console.time('Tempo di esecuzione');
-  const results = await updateCellLabel(1, "Sam");
+  const results = await getTableById(1);
   console.timeEnd('Tempo di esecuzione');
   console.log(results);
 }
 
 async function run() {
-  // await processUsers();
-  // await processDatasets();
+  //await processUsers();
+  //await processDatasets();
   //await processTables();
   //await processColumnsAndResults();
   await testQueries();
-  await printTableByTableId(1);
+   await printTableByTableId(1);
+  // await processExtensionJson(1, path.join(dataDir, '1.extension.response.json'));
 }
 
 run().catch(console.error);
+

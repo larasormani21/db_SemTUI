@@ -1,3 +1,4 @@
+
 -- 1. Utenti
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
@@ -57,21 +58,9 @@ CREATE TABLE reconciliation_results (
     UNIQUE (column_id, row_index)
 );
 
--- 6. Estensioni per risultati di riconciliazione (serie temporali, proprietà multiple, etc.)
-CREATE TABLE reconciliation_extensions (
-    id INTEGER PRIMARY KEY,
-    reconciliation_id INTEGER REFERENCES reconciliation_results(id) ON DELETE CASCADE,
-    property TEXT NOT NULL,
-    value TEXT,
-    value_kind TEXT DEFAULT 'literal',
-    context TEXT
-);
-
 -- 7. Indici
 CREATE INDEX idx_reconciliation_column_row ON reconciliation_results(column_id, row_index);
 CREATE INDEX idx_candidates_jsonb ON reconciliation_results USING gin(candidates);
-CREATE INDEX idx_recon_ext_recon_id_property ON reconciliation_extensions(reconciliation_id, property);
-
 
 -- 8. Triggers
 CREATE OR REPLACE FUNCTION update_table_stats()

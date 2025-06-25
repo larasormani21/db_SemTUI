@@ -8,6 +8,11 @@ export async function getIdByTableAndName(tableId, name) {
   return res.rows[0]?.id;
 }
 
+export async function getAllColumns() {
+  const res = await pool.query('SELECT * FROM columns ORDER BY id');
+  return res.rows;
+}
+
 export async function getColumnsByTableId(tableId) {
   const res = await pool.query('SELECT * FROM columns WHERE table_id = $1 ORDER BY id', [tableId]);
   return res.rows;

@@ -1,5 +1,10 @@
 import pool from './index.js';
 
+export async function getAllResults() {
+  const res = await pool.query('SELECT * FROM reconciliation_results ORDER BY column_id, row_index');
+  return res.rows;
+}
+
 export async function getResultsByColumnId(columnId) {
   const res = await pool.query('SELECT * FROM reconciliation_results WHERE column_id = $1 ORDER BY row_index', [columnId]);
   return res.rows;
@@ -52,4 +57,130 @@ export async function updateReconciliationResultByColumnIdAndRow(columnId, rowIn
     [bestMatchUri, bestMatchLabel, score, JSON.stringify(candidates), JSON.stringify(annotationMeta), columnId, rowIndex]
   );
   return res.rows[0];
+}
+
+export async function updateBestMatchById(id, bestMatchUri, bestMatchLabel, score) {
+  const res = await pool.query()(
+    `UPDATE reconciliation_results 
+     SET best_match_uri = $1, best_match_label = $2, score = $3
+     WHERE id = $4 RETURNING *`,
+    [bestMatchUri, bestMatchLabel, score, id]
+  );
+  return res.rows[0];
+}
+
+export async function getResultsWithMinScore(score) {
+  const res = await pool.query(
+    `SELECT * FROM reconciliation_results
+     WHERE score >= $1`,
+    [score]
+  );
+  return res.rows;
+}
+
+export async function getResultsWithMinScoreByColumnId(columnId, score) {
+  const res = await pool.query(
+    `SELECT * FROM reconciliation_results 
+     WHERE column_id = $1 AND score >= $2`,
+    [columnId, score]
+  );
+  return res.rows;
+}
+
+export async function getCandidatesByCellId(cellId) {
+  const res = await pool.query(
+    `SELECT rr.id AS cell_id,
+            rr.column_id,
+            rr.row_index,
+            rr.cell_value,
+            cand -> 'name' ->> 'uri'   AS candidate_uri,
+            cand -> 'name' ->> 'value' AS candidate_label,
+            (cand ->> 'score')::FLOAT AS candidate_score
+    FROM reconciliation_results rr,
+         jsonb_array_elements(rr.candidates) AS cand
+    WHERE jsonb_typeof(rr.candidates) = 'array' AND rr.id = $1`,
+    [cellId]
+  );
+  return res.rows;
+}
+
+export async function getCandidatesWithMinScore(score) {
+  const res = await pool.query(
+    `SELECT
+      rr.id AS cell_id,
+      rr.column_id,
+      rr.row_index,
+      rr.cell_value,
+      cand -> 'name' ->> 'uri'   AS candidate_uri,
+      cand -> 'name' ->> 'value' AS candidate_label,
+      (cand ->> 'score')::FLOAT AS candidate_score
+    FROM reconciliation_results rr,
+         jsonb_array_elements(rr.candidates) AS cand
+    WHERE jsonb_typeof(rr.candidates) = 'array' AND 
+    (cand ->> 'score')::FLOAT >= $1`,
+    [score]
+  );
+  return res.rows;
+}
+
+export async function getCandidatesWithMinScoreByColumnId(columnId, score) {
+  const res = await pool.query(
+    `SELECT
+      rr.id AS cell_id,
+      rr.row_index,
+      rr.cell_value,
+      cand -> 'name' ->> 'uri'   AS candidate_uri,
+      cand -> 'name' ->> 'value' AS candidate_label,
+      (cand ->> 'score')::FLOAT AS candidate_score
+    FROM reconciliation_results rr,
+         jsonb_array_elements(rr.candidates) AS cand
+    WHERE jsonb_typeof(rr.candidates) = 'array' AND 
+    (cand ->> 'score')::FLOAT >= $1 AND rr.column_id = $2`,
+    [score, columnId]
+  );
+  return res.rows;
+}
+
+export async function searchCellsByValuePrefix(prefix, columnId = null) {
+  const params = [`${prefix}%`];
+  let where = `rr.cell_value ILIKE $1`;
+  if (columnId !== null) {
+    where += ' AND rr.column_id = $2';
+    params.push(columnId);
+  }
+  const res = await pool.query(
+    `SELECT
+      rr.id AS cell_id,
+      rr.row_index,
+      rr.cell_value,
+      rr.column_id
+    FROM reconciliation_results rr
+    WHERE ${where}`,
+    params
+  );
+  return res.rows;
+}
+
+export async function searchCandidatesByLabelSubstring(substring, columnId = null) {
+  const params = [`%${substring}%`];
+  let where = `jsonb_typeof(rr.candidates) = 'array' AND cand -> 'name' ->> 'value' ILIKE $1`;
+  if (columnId !== null) {
+    where += ' AND rr.column_id = $2';
+    params.push(columnId);
+  }
+  const res = await pool.query(
+    `SELECT
+      rr.id AS cell_id,
+      rr.column_id,
+      rr.row_index,
+      rr.cell_value,
+      cand -> 'name' ->> 'uri'   AS candidate_uri,
+      cand -> 'name' ->> 'value' AS candidate_label,
+      (cand ->> 'score')::FLOAT AS candidate_score
+    FROM reconciliation_results rr,
+         jsonb_array_elements(rr.candidates) AS cand
+    WHERE ${where}`,
+    params
+  );
+  return res.rows;
 }

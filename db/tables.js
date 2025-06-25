@@ -78,7 +78,7 @@ export async function updateTableName(id, newName) {
 
 export async function printTableByTableId(tableId) {
   const res = await pool.query(
-    `SELECT c.name AS column_name, rr.row_index, rr.cell_value
+    `SELECT c.name AS column_name, rr.row_index, rr.best_match_uri, rr.cell_value
      FROM reconciliation_results rr
      JOIN columns c ON rr.column_id = c.id
      WHERE c.table_id = $1
@@ -90,10 +90,13 @@ export async function printTableByTableId(tableId) {
   const rows = {};
   const columns = new Set();
 
-  for (const { column_name, row_index, cell_value } of res.rows) {
+  for (const { column_name, row_index, cell_value, best_match_uri } of res.rows) {
     columns.add(column_name);
     if (!rows[row_index]) rows[row_index] = {};
-    rows[row_index][column_name] = cell_value;
+    // Mostra sia il valore che la URI (se presente)
+    rows[row_index][column_name] = best_match_uri
+      ? `${cell_value} ${best_match_uri}`
+      : cell_value ?? '';
   }
 
   const colArray = Array.from(columns);
