@@ -12,3 +12,8 @@ const pool = new Pool({
 });
 
 export default pool;
+export * from './users.js';
+export * from './datasets.js';
+export * from './tables.js';
+export * from './column.js';
+export * from './cells.js';

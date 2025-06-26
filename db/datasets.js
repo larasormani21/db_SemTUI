@@ -5,22 +5,22 @@ export async function getAllDatasets() {
   return res.rows;
 }
 
+export async function getDatasetById(id) {
+  const res = await pool.query('SELECT * FROM datasets WHERE id = $1', [id]);
+  return res.rows;
+}
+
 export async function getDatasetsByUserId(userId) {
   const res = await pool.query('SELECT * FROM datasets WHERE user_id = $1', [userId]);
   return res.rows;
 }
 
-export async function getIdbyUserAndName(userId, name) {
+export async function getIdbyUserAndName(userId, datasetName) {
   const res = await pool.query(
     'SELECT id FROM datasets WHERE user_id = $1 AND LOWER(name) = LOWER($2)',
-    [userId, name]
+    [userId, datasetName]
   );
   return res.rows[0]?.id;
-}
-
-export async function getDatasetById(id) {
-  const res = await pool.query('SELECT * FROM datasets WHERE id = $1', [id]);
-  return res.rows[0];
 }
 
 export async function getDatasetByName(name) {
@@ -49,5 +49,10 @@ export async function updateDataset(id, name, description) {
     'UPDATE datasets SET name = $1, description = $2 WHERE id = $3 RETURNING *',
     [name, description, id]
   );
+  return res.rows[0];
+}
+
+export async function deleteDataset(id) {
+  const res = await pool.query('DELETE FROM datasets WHERE id = $1 RETURNING *', [id]);
   return res.rows[0];
 }

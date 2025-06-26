@@ -1,19 +1,7 @@
 import fs from 'fs/promises';
 import path from 'path';
 import bcrypt from 'bcrypt';
-import { loginUser, getUserByUsername, createUser, getAllUsers, getUserById, updateUserPassword} from '../db/users.js';
-import { createDataset, getAllDatasets, getDatasetById, getDatasetByName, getDatasetByNameAndUser, getDatasetsByUserId, updateDataset } from '../db/datasets.js';
-import { createTable, getTableById, getTablesByDatasetId, getTablesByNameAndUser, updateTableName, printTableByTableId } from '../db/tables.js';
-import { getAllColumns, createColumn, deleteColumn, getColumnById, 
-  addPropertyToColumn, updatePropertyInColumn, deletePropertyFromColumn,
-  updateReconciliationColumn} from '../db/column.js';
-import { createResult, updateCellLabel, updateReconciliationResultById, 
-  getResultsWithMinScore, getResultsWithMinScoreByColumnId, getResultById, getCandidatesWithMinScore,
-  getCandidatesWithMinScoreByColumnId,
-  getIdByColumnIdAndRow,
-  getResultsByColumnId, getCandidatesByCellId
-} from '../db/cells.js';
-import { get } from 'http';
+import * as db from '../db/index.js';
 
 
 const dataDir = path.resolve('./test/data');
@@ -27,10 +15,9 @@ async function processUsers() {
   for (const user of Object.values(users)) {
     const { username, password } = user;
     if (!username || !password) continue;
-    const existing = await getUserByUsername(username);
+    const existing = await db.getUserByUsername(username);
     if (existing) continue;
-    const passwordHash = await bcrypt.hash(password, SALT_ROUNDS);
-    await createUser(username, passwordHash);
+    await db.createUser(username, password);
   }
 }
 
@@ -40,7 +27,7 @@ async function processDatasets() {
   const json = JSON.parse(content);
   const datasets = json.datasets;
   for (const ds of Object.values(datasets)) {
-    await createDataset(ds.userId, ds.name, ds.description);
+    await db.createDataset(ds.userId, ds.name, ds.description);
   }
 }
 
@@ -50,7 +37,7 @@ async function processTables() {
   const json = JSON.parse(content);
   const tables = json.tables;
   for (const t of Object.values(tables)) {
-    await createTable(
+    await db.createTable(
       t.idDataset,
       t.name,
       t.nCols || 0,
@@ -71,7 +58,7 @@ async function processColumnsAndResults() {
     const columns = {}; // nome -> id
     let colIndex = 0;
     for (const [colName, col] of Object.entries(json.columns)) {
-      const dbCol = await createColumn(
+      const dbCol = await db.createColumn(
         1,
         colName,
         col.status || null,
@@ -91,7 +78,7 @@ async function processColumnsAndResults() {
     for (const [colName, cell] of Object.entries(row.cells)) {
       const columnId = columns[colName];
       if (!columnId) continue;
-      await createResult(
+      await db.createResult(
         columnId,
         rowIndex,
         cell.label,
@@ -117,7 +104,7 @@ async function processExtensionJson(tableId, extensionFilePath) {
   for (const meta of extJson.meta) {
     let isEntity = !!meta.type;
     let metadata = [meta]; // inserisci l'intero oggetto meta in un array
-    const col = await createColumn(
+    const col = await db.createColumn(
       tableId,
       meta.id,
       null, // status
@@ -149,15 +136,15 @@ async function processExtensionJson(tableId, extensionFilePath) {
         bestMatchLabel = first.name || null;
       }
 
-      await createResult(
+      await db.createResult(
         columnId,
         rowIndex,
         cellValue,
         bestMatchUri,
         bestMatchLabel,
-        null,           // score
-        values,         // candidates: l'intero array della colonna
-        {}              // annotationMeta: sempre vuoto
+        null,           
+        values,         
+        {}
       );
     }
     rowIndex++;
@@ -166,20 +153,19 @@ async function processExtensionJson(tableId, extensionFilePath) {
 
 async function testQueries() {
   console.time('Tempo di esecuzione');
-  const results = await deleteColumn(5);
+  const results = await db.getAllColumns();
   console.timeEnd('Tempo di esecuzione');
-  console.log(results);
+  console.dir(results, { depth: null, colors: true });
 }
 
 async function run() {
-  //await processUsers();
-  //await processDatasets();
-  //await processTables();
-  //await processColumnsAndResults();
-  //await processExtensionJson(1, path.join(dataDir, '1.extension.response.json'));
+  // await processUsers();
+  // await processDatasets();
+  // await processTables();
+  // await processColumnsAndResults();
+  // await processExtensionJson(1, path.join(dataDir, '1.extension.response.json'));
   await testQueries();
-  //await printTableByTableId(1);
-  
+  // await printTableByTableId(1);  
 }
 
 run().catch(console.error);

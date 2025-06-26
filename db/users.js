@@ -11,12 +11,12 @@ export async function loginUser(username, password) {
 }
 
 export async function getAllUsers() {
-  const res = await pool.query('SELECT id, username, created_at FROM users');
+  const res = await pool.query('SELECT * FROM users');
   return res.rows;
 }
 
 export async function getUserById(id) {
-  const res = await pool.query('SELECT id, username, created_at FROM users WHERE id = $1', [id]);
+  const res = await pool.query('SELECT * FROM users WHERE id = $1', [id]);
   return res.rows[0];
 }
 
@@ -26,6 +26,7 @@ export async function getUserByUsername(username) {
 }
 
 export async function createUser(username, password) {
+  password = await bcrypt.hash(password, 10);
   const res = await pool.query(
     'INSERT INTO users (username, password) VALUES ($1, $2) RETURNING id, username, created_at',
     [username, password]
@@ -33,11 +34,16 @@ export async function createUser(username, password) {
   return res.rows[0];
 }
 
-export async function updateUserPassword(id, newPassword) {
+export async function updateUser(id, newUsername, newPassword) {
   const res = await pool.query(
-    'UPDATE users SET password = $1 WHERE id = $2 RETURNING id, username, created_at',
-    [newPassword, id] 
+    'UPDATE users SET username = $1, password = $2 WHERE id = $3 RETURNING id, username, created_at',
+    [newUsername, newPassword, id]
   );
+  return res.rows[0];
+}
+
+export async function deleteUser(id) {
+  const res = await pool.query('DELETE FROM users WHERE id = $1 RETURNING id', [id]);
   return res.rows[0];
 }
 

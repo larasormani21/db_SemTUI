@@ -1,18 +1,17 @@
 import pool from './index.js';
 
+export async function getAllTables() {
+  const res = await pool.query('SELECT * FROM tables');
+  return res.rows;
+}
+
 export async function getTablesByDatasetId(datasetId) {
   const res = await pool.query(
     `SELECT *
      FROM tables WHERE dataset_id = $1 ORDER BY created_at DESC`, 
     [datasetId]
   );
-  return res.rows.map(row => ({
-    ...row,
-    completion: {
-      total: row.n_cells,
-      value: row.n_cells_reconciliated
-    }
-  }));
+  return res.rows;
 }
 
 export async function getIdByDatasetAndName(datasetId, name) {
@@ -28,7 +27,7 @@ export async function getTableById(id) {
   return res.rows[0];
 }
 
-export async function getTablesByName(name) {
+export async function searchTablesByName(name) {
   const res = await pool.query(
     'SELECT * FROM tables WHERE LOWER(name) LIKE LOWER($1)', 
     [`%${name}%`]
@@ -36,24 +35,13 @@ export async function getTablesByName(name) {
   return res.rows;
 }
 
-export async function getTablesByNameAndUser(userId, name) {
+export async function searchTablesByUserAndName(userId, tableName) {
   const res = await pool.query(
     `SELECT t.*
      FROM tables t
      JOIN datasets d ON d.id = t.dataset_id
      WHERE d.user_id = $1 AND LOWER(t.name) LIKE LOWER($2)`,
-    [userId, `%${name}%`]
-  );
-  return res.rows;
-}
-
-export async function getTablesByNameAndId(userId, id) {
-  const res = await pool.query(
-    `SELECT t.*
-     FROM tables t
-     JOIN datasets d ON d.id = t.dataset_id
-     WHERE d.user_id = $1 AND t.id = $2`,
-    [userId, id]
+    [userId, `%${tableName}%`]
   );
   return res.rows;
 }
@@ -73,6 +61,21 @@ export async function updateTableName(id, newName) {
     `UPDATE tables SET name = $1, last_modified_date = NOW() WHERE id = $2 RETURNING *`,
     [newName, id]
   );
+  return res.rows[0];
+}
+
+export async function updateRDF(id, rdf){
+  const res = await pool.query(
+    `UPDATE tables SET rdf = $1, last_modified_date = NOW() WHERE id = $2 RETURNING *`,
+    [rdf, id]
+  );
+  return res.rows[0];
+}
+
+export async function deleteTable(id) {
+  const res = await pool.query(
+    `DELETE FROM tables WHERE id = $1 RETURNING *`,
+    [id]);
   return res.rows[0];
 }
 

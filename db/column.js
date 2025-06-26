@@ -1,9 +1,9 @@
 import pool from './index.js';
 
-export async function getIdByTableAndName(tableId, name) {
+export async function getIdByTableAndName(tableId, columnName) {
   const res = await pool.query(
     'SELECT id FROM columns WHERE table_id = $1 AND LOWER(name) = LOWER($2)',
-    [tableId, name]
+    [tableId, columnName]
   );
   return res.rows[0]?.id;
 }
@@ -31,12 +31,12 @@ export async function getColumnByName(tableId, name) {
   return res.rows[0];
 }
 
-export async function createColumn(tableId, name, status = null, context = {}, isEntity = false, metadata = []) {
+export async function createColumn(tableId, name, status = null, context = {}, isEntity = false, metadata = [], annotationMeta = {}) {
   const res = await pool.query(
     `INSERT INTO columns 
-      (table_id, name, status, context, is_entity, metadata)
-     VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`,
-    [tableId, name, status, JSON.stringify(context), isEntity, JSON.stringify(metadata)]
+      (table_id, name, status, context, is_entity, metadata, annotation_meta)
+     VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`,
+    [tableId, name, status, JSON.stringify(context), isEntity, JSON.stringify(metadata), JSON.stringify(annotationMeta)]
   );
   return res.rows[0];
 }
@@ -49,25 +49,24 @@ export async function updateColumnName(id, name) {
   return res.rows[0];
 }
 
-export async function updateReconciliationColumn(id, status = "reconciliated", context, isEntity, metadata) {
+export async function updateReconciliationColumn(id, status = "reconciliated", context, isEntity, metadata, annotationMeta) {
   const res = await pool.query(
     `UPDATE columns 
-     SET status = $1, context = $2, is_entity = $3, metadata = $4
-     WHERE id = $5 RETURNING *`,
-    [status, JSON.stringify(context), isEntity, JSON.stringify(metadata), id]
+     SET status = $1, context = $2, is_entity = $3, metadata = $4, annotation_meta = $5
+     WHERE id = $6 RETURNING *`,
+    [status, JSON.stringify(context), isEntity, JSON.stringify(metadata), JSON.stringify(annotationMeta),id]
   );
   return res.rows[0];
 }
 
-export async function deleteColumn(columnId, columnName, tableId) {
-  // 1. Elimina la colonna
-  const deleted = await pool.query(
-    'DELETE FROM columns WHERE id = $1 RETURNING *',
+export async function deleteColumn(columnId) {
+  const colRes = await pool.query(
+    'SELECT name, table_id FROM columns WHERE id = $1',
     [columnId]
   );
-  if (!deleted.rows.length) return null;
+  if (!colRes.rows.length) return null;
+  const { name: columnName, table_id: tableId } = colRes.rows[0];
 
-  // 2. Rimuovi la property associata (obj = columnName) da tutte le altre colonne della stessa tabella
   await pool.query(
     `
     UPDATE columns
@@ -87,15 +86,11 @@ export async function deleteColumn(columnId, columnName, tableId) {
     [columnName, tableId, columnId]
   );
 
-  return deleted.rows[0];
-}
-
-export async function deleteColumnsByNameAndTableId(tableId, name) {
-  const res = await pool.query(
-    'DELETE FROM columns WHERE table_id = $1 AND LOWER(name) = LOWER($2) RETURNING *',
-    [tableId, name]
+  const deleted = await pool.query(
+    'DELETE FROM columns WHERE id = $1 RETURNING *',
+    [columnId]
   );
-  return res.rows;
+  return deleted.rows[0];
 }
 
 export async function addPropertyToColumn(columnId, propertyObj) {
@@ -111,33 +106,6 @@ export async function addPropertyToColumn(columnId, propertyObj) {
     RETURNING *;
     `,
     [JSON.stringify(propertyObj), columnId]
-  );
-  return res.rows[0];
-}
-
-// Modifica una property nell'array property del primo oggetto metadata
-export async function updatePropertyInColumn(columnId, propertyId, newFields) {
-  const res = await pool.query(
-    `
-    UPDATE columns
-    SET metadata = jsonb_set(
-      metadata,
-      '{0,property}',
-      COALESCE((
-        SELECT jsonb_agg(
-          CASE
-            WHEN prop->>'id' = $1
-            THEN prop || $2::jsonb
-            ELSE prop
-          END
-        )
-        FROM jsonb_array_elements(metadata->0->'property') AS prop
-      ), '[]'::jsonb)
-    )
-    WHERE id = $3
-    RETURNING *;
-    `,
-    [propertyId, JSON.stringify(newFields), columnId]
   );
   return res.rows[0];
 }
@@ -163,14 +131,46 @@ export async function deletePropertyFromColumn(columnId, propertyId) {
   return res.rows[0];
 }
 
-export async function getPropertiesFromColumn(tableId, columnName) {
+export async function getPropertiesFromColumn(id) {
   const res = await pool.query(
     `
     SELECT metadata->0->'property' AS properties
     FROM columns
-    WHERE table_id = $1 AND LOWER(name) = LOWER($2)
+    WHERE id = $1
     `,
-    [tableId, columnName]
+    [id]
   );
   return res.rows[0]?.properties || [];
+}
+
+export async function getAllPropertiesOfTable(tableId) {
+  const res = await pool.query(
+    `
+    SELECT
+      c1.id AS id_col1,
+      c1.name AS name_col1,
+      prop->>'id' AS id_property,
+      c2.id AS id_col2,
+      c2.name AS name_col2
+    FROM columns c1
+    JOIN LATERAL jsonb_array_elements(c1.metadata->0->'property') AS prop ON TRUE
+    JOIN columns c2 ON prop->>'obj' = c2.name
+    WHERE c1.metadata->0->'property' IS NOT NULL AND c1.table_id = $1
+    `, [tableId]
+  );
+  return res.rows;
+}
+
+export async function getMetadataByColumnId(columnId) {
+  const res = await pool.query(
+    `
+    SELECT metadata
+    FROM columns
+    WHERE id = $1
+    `,
+    [columnId]
+  );
+  if (!res.rows.length) return null;
+  // Restituisce l'oggetto metadata già come oggetto JS
+  return res.rows[0].metadata;
 }
