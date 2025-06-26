@@ -4,13 +4,15 @@ import bcrypt from 'bcrypt';
 import { loginUser, getUserByUsername, createUser, getAllUsers, getUserById, updateUserPassword} from '../db/users.js';
 import { createDataset, getAllDatasets, getDatasetById, getDatasetByName, getDatasetByNameAndUser, getDatasetsByUserId, updateDataset } from '../db/datasets.js';
 import { createTable, getTableById, getTablesByDatasetId, getTablesByNameAndUser, updateTableName, printTableByTableId } from '../db/tables.js';
-import { getAllColumns, createColumn, deleteColumn, getColumnById } from '../db/column.js';
+import { getAllColumns, createColumn, deleteColumn, getColumnById, 
+  addPropertyToColumn, updatePropertyInColumn, deletePropertyFromColumn,
+  updateReconciliationColumn} from '../db/column.js';
 import { createResult, updateCellLabel, updateReconciliationResultById, 
   getResultsWithMinScore, getResultsWithMinScoreByColumnId, getResultById, getCandidatesWithMinScore,
   getCandidatesWithMinScoreByColumnId,
   getIdByColumnIdAndRow,
   getResultsByColumnId, getCandidatesByCellId
-} from '../db/reconciliation_results.js';
+} from '../db/cells.js';
 import { get } from 'http';
 
 
@@ -128,7 +130,7 @@ async function processExtensionJson(tableId, extensionFilePath) {
     columnMetas[meta.id] = meta;
   }
 
-  // 2. Popola reconciliation_results
+  // 2. Popola cells
   let rowIndex = 0;
   for (const [qid, props] of Object.entries(extJson.rows)) {
     for (const [property, values] of Object.entries(props)) {
@@ -164,7 +166,7 @@ async function processExtensionJson(tableId, extensionFilePath) {
 
 async function testQueries() {
   console.time('Tempo di esecuzione');
-  const results = await getTableById(1);
+  const results = await deleteColumn(5);
   console.timeEnd('Tempo di esecuzione');
   console.log(results);
 }

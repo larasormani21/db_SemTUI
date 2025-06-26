@@ -79,7 +79,7 @@ export async function updateTableName(id, newName) {
 export async function printTableByTableId(tableId) {
   const res = await pool.query(
     `SELECT c.name AS column_name, rr.row_index, rr.best_match_uri, rr.cell_value
-     FROM reconciliation_results rr
+     FROM cells rr
      JOIN columns c ON rr.column_id = c.id
      WHERE c.table_id = $1
      ORDER BY rr.row_index, c.id`,

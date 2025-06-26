@@ -41,7 +41,6 @@ CREATE TABLE columns (
     context JSONB DEFAULT '{}',
     is_entity BOOLEAN DEFAULT FALSE,
     metadata JSONB DEFAULT '[]',
-    annotation_meta JSONB DEFAULT '{}',
     UNIQUE (table_id, name)
 );
 
