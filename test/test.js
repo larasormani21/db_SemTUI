@@ -48,35 +48,43 @@ async function processTables() {
   }
 }
 
-async function processColumnsAndResults() {
-  const filePath = path.join(dataDir, '1.json');
+function normalizeColName(name) {
+  return name.replace(/^\uFEFF/, '').trim();
+}
+
+async function processColumnsAndResults(tableId) {
+  const filePath = path.join(dataDir, '126_big.json');
   const content = await fs.readFile(filePath, 'utf-8');
   const json = JSON.parse(content);
 
   // Columns
   if (json.columns) {
-    const columns = {}; // nome -> id
+    const columns = {};
     let colIndex = 0;
+    // Creazione colonne
     for (const [colName, col] of Object.entries(json.columns)) {
+      const normColName = normalizeColName(colName);
       const dbCol = await db.createColumn(
-        1,
-        colName,
+        tableId,
+        normColName,
         col.status || null,
         col.context || {},
         col.kind === 'entity',
         col.metadata || [],
         col.annotationMeta || {}
       );
-      columns[colName] = dbCol.id;
+      columns[normColName] = dbCol.id;
       colIndex++;
     }
     // Reconciliation Results
-    if (json.rows && json.rows.rows) {
-  for (const [rowKey, row] of Object.entries(json.rows.rows)) {
+    if (json.rows) {
+  for (const [rowKey, row] of Object.entries(json.rows)) {
     if (!row.cells) continue;
     const rowIndex = parseInt(rowKey.replace('r', ''));
+    // Parsing celle
     for (const [colName, cell] of Object.entries(row.cells)) {
-      const columnId = columns[colName];
+      const normColName = normalizeColName(colName);
+      const columnId = columns[normColName];
       if (!columnId) continue;
       await db.createResult(
         columnId,
@@ -85,8 +93,8 @@ async function processColumnsAndResults() {
         cell.metadata && cell.metadata[0] && cell.metadata[0].name && cell.metadata[0].name.uri ? cell.metadata[0].name.uri : null,
         cell.metadata && cell.metadata[0] && cell.metadata[0].name && cell.metadata[0].name.value ? cell.metadata[0].name.value : null,
         cell.metadata && cell.metadata[0] && cell.metadata[0].score ? cell.metadata[0].score : null,
-        cell.metadata ? cell.metadata : '[]',
-        cell.annotationMeta ? cell.annotationMeta : '{}'
+        cell.metadata ? cell.metadata : [],
+        cell.annotationMeta ? cell.annotationMeta : {}
       );
     }
   }
@@ -153,17 +161,19 @@ async function processExtensionJson(tableId, extensionFilePath) {
 
 async function testQueries() {
   console.time('Tempo di esecuzione');
-  const results = await db.getAllColumns();
+  //const results = await db.deleteTable(5);
+  const results = await db.searchCandidatesByLabelSubstring('A', 52)
   console.timeEnd('Tempo di esecuzione');
   console.dir(results, { depth: null, colors: true });
 }
 
 async function run() {
-  // await processUsers();
-  // await processDatasets();
-  // await processTables();
-  // await processColumnsAndResults();
-  // await processExtensionJson(1, path.join(dataDir, '1.extension.response.json'));
+  //await processUsers();
+  //await processDatasets();
+  //await processTables();
+  //await testQueries();
+  //await processColumnsAndResults(8);
+  //await processExtensionJson(1, path.join(dataDir, '1.extension.response.json'));
   await testQueries();
   // await printTableByTableId(1);  
 }

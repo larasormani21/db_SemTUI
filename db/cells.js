@@ -10,6 +10,11 @@ export async function getResultsByColumnId(columnId) {
   return res.rows;
 }
 
+export async function getResultsByTableId(tableId) {
+  const res = await pool.query('SELECT rr.* FROM cells rr JOIN columns c ON rr.column_id = c.id WHERE c.table_id = $1 ORDER BY rr.row_index', [tableId]);
+  return res.rows;
+}
+
 export async function getIdByColumnIdAndRow(columnId, rowIndex) {
   const res = await pool.query(
     'SELECT id FROM cells WHERE column_id = $1 AND row_index = $2',
@@ -21,6 +26,25 @@ export async function getIdByColumnIdAndRow(columnId, rowIndex) {
 export async function getResultById(id) {
   const res = await pool.query('SELECT * FROM cells WHERE id = $1', [id]);
   return res.rows[0];
+}
+
+export async function countResultsByColumnId(columnId) {
+  const res = await pool.query(
+    `SELECT COUNT(*) AS count FROM cells WHERE column_id = $1`,
+    [columnId]
+  );
+  return parseInt(res.rows[0].count, 10);
+}
+
+export async function countResultsByTableId(tableId) {
+  const res = await pool.query(
+    `SELECT COUNT(*) AS count
+     FROM cells rr
+     JOIN columns c ON rr.column_id = c.id
+     WHERE c.table_id = $1`,
+    [tableId]
+  );
+  return parseInt(res.rows[0].count, 10);
 }
 
 export async function createResult(columnId, rowIndex, cellValue, bestMatchUri = null, bestMatchLabel = null, score = null, candidates = [], annotationMeta = {}) {
