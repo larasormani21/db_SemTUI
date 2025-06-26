@@ -3,11 +3,11 @@
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
     username TEXT UNIQUE NOT NULL,
-    password_hash TEXT NOT NULL,
+    password TEXT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- 2. Dataset
+-- 2. Dataset di un utente
 CREATE TABLE datasets (
     id SERIAL PRIMARY KEY,
     user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
@@ -26,6 +26,7 @@ CREATE TABLE tables (
     num_rows INTEGER NOT NULL,
     num_cells INTEGER NOT NULL,
     num_cells_reconciliated INTEGER NOT NULL,
+    rdf JSONB DEFAULT '{}',
     last_modified_date TIMESTAMP,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     UNIQUE(dataset_id, name)
@@ -44,8 +45,8 @@ CREATE TABLE columns (
     UNIQUE (table_id, name)
 );
 
--- 5. Risultati di riconciliazione (una riga per cella)
-CREATE TABLE reconciliation_results (
+-- 5. Celle della tabella
+CREATE TABLE cells (
     id SERIAL PRIMARY KEY,
     column_id INTEGER REFERENCES columns(id) ON DELETE CASCADE,
     row_index INTEGER NOT NULL,
@@ -58,25 +59,25 @@ CREATE TABLE reconciliation_results (
     UNIQUE (column_id, row_index)
 );
 
--- 7. Indici
-CREATE INDEX idx_reconciliation_column_row ON reconciliation_results(column_id, row_index);
-CREATE INDEX idx_candidates_jsonb ON reconciliation_results USING gin(candidates);
+-- 6. Indici
+CREATE INDEX idx_datasets_user_id ON datasets(user_id);
+CREATE INDEX idx_tables_dataset_id ON tables(dataset_id);
+CREATE INDEX idx_columns_table_id ON columns(table_id);
+CREATE INDEX idx_candidates_jsonb ON cells USING gin(candidates);
 
--- 8. Triggers
+-- 7. Triggers
 CREATE OR REPLACE FUNCTION update_table_stats()
 RETURNS TRIGGER AS $$
 DECLARE
   col_table_id INTEGER;
 BEGIN
-  -- Se il trigger è su columns, usa direttamente table_id
   IF TG_TABLE_NAME = 'columns' THEN
     IF (TG_OP = 'DELETE') THEN
       col_table_id := OLD.table_id;
     ELSE
       col_table_id := COALESCE(NEW.table_id, OLD.table_id);
     END IF;
-  -- Se il trigger è su reconciliation_results, risali da column_id
-  ELSIF TG_TABLE_NAME = 'reconciliation_results' THEN
+  ELSIF TG_TABLE_NAME = 'cells' THEN
     IF (TG_OP = 'DELETE') THEN
       SELECT table_id INTO col_table_id FROM columns WHERE id = OLD.column_id;
     ELSE
@@ -93,7 +94,7 @@ BEGIN
     num_col = (SELECT COUNT(*) FROM columns c WHERE c.table_id = col_table_id),
     num_rows = COALESCE((
       SELECT MAX(rr.row_index) + 1
-      FROM reconciliation_results rr
+      FROM cells rr
       JOIN columns c ON rr.column_id = c.id
       WHERE c.table_id = col_table_id
     ), 0),
@@ -101,14 +102,14 @@ BEGIN
       (SELECT COUNT(*) FROM columns c WHERE c.table_id = col_table_id) *
       COALESCE((
         SELECT MAX(rr.row_index) + 1
-        FROM reconciliation_results rr
+        FROM cells rr
         JOIN columns c ON rr.column_id = c.id
         WHERE c.table_id = col_table_id
       ), 0)
     ),
     num_cells_reconciliated = (
       SELECT COUNT(*)
-      FROM reconciliation_results rr
+      FROM cells rr
       JOIN columns c ON rr.column_id = c.id
       WHERE c.table_id = col_table_id AND c.status = 'reconciliated'
     ),
@@ -120,7 +121,7 @@ END;
 $$ LANGUAGE plpgsql;
 
 CREATE TRIGGER trg_update_table_stats
-AFTER INSERT OR UPDATE OR DELETE ON reconciliation_results
+AFTER INSERT OR UPDATE OR DELETE ON cells
 FOR EACH ROW
 EXECUTE FUNCTION update_table_stats();
 

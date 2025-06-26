@@ -60,7 +60,7 @@ async function processTables() {
 }
 
 async function processColumnsAndResults() {
-  const filePath = path.join(dataDir, '0.json');
+  const filePath = path.join(dataDir, '1.json');
   const content = await fs.readFile(filePath, 'utf-8');
   const json = JSON.parse(content);
 
@@ -174,9 +174,10 @@ async function run() {
   //await processDatasets();
   //await processTables();
   //await processColumnsAndResults();
+  //await processExtensionJson(1, path.join(dataDir, '1.extension.response.json'));
   await testQueries();
-   await printTableByTableId(1);
-  // await processExtensionJson(1, path.join(dataDir, '1.extension.response.json'));
+  //await printTableByTableId(1);
+  
 }
 
 run().catch(console.error);
