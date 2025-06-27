@@ -88,12 +88,10 @@ async function processColumnsAndResults(tableId, file) {
   for (const [rowKey, row] of Object.entries(json.rows)) {
     if (!row.cells) continue;
     const rowIndex = parseInt(rowKey.replace('r', ''));
-    // Parsing celle
     for (const [colName, cell] of Object.entries(row.cells)) {
       //const normColName = normalizeColName(colName);
       const columnId = columns[colName];
       if (!columnId) continue;
-      console.log("loggg")
       await db.createCell(
         columnId,
         rowIndex,
@@ -114,7 +112,6 @@ async function processExtensionJson(tableId, extensionFilePath) {
   const extContent = await fs.readFile(extensionFilePath, 'utf-8');
   const extJson = JSON.parse(extContent);
 
-  // 1. Popola columns
   const columnIds = {};
   const columnMetas = {};
   for (const meta of extJson.meta) {
@@ -123,17 +120,16 @@ async function processExtensionJson(tableId, extensionFilePath) {
     const col = await db.createColumn(
       tableId,
       meta.id,
-      null, // status
-      {},   // context
+      null,
+      {},
       isEntity,
       metadata,
-      {}    // annotationMeta: sempre vuoto
+      {}
     );
     columnIds[meta.id] = col.id;
     columnMetas[meta.id] = meta;
   }
 
-  // 2. Popola cells
   let rowIndex = 0;
   for (const [qid, props] of Object.entries(extJson.rows)) {
     for (const [property, values] of Object.entries(props)) {
@@ -171,8 +167,7 @@ async function testAllQueryUseCase1() {
 
 async function testQuery() {
   console.time('Tempo di esecuzione');
-  //const results = await db.deleteTable(5);
-  const results = await db.createTable(1, 'Use case 2');
+  const results = await db.getAllCandidatesByCellId(1);
   console.timeEnd('Tempo di esecuzione');
   console.dir(results, { depth: null, colors: true });
 }

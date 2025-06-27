@@ -98,11 +98,42 @@ export async function updateReconciliationResultByColumnIdAndRow(columnId, rowIn
 }
 
 export async function updateMatchById(id, matchUri, score) {
-  const res = await pool.query()(
+  const cellRes = await pool.query('SELECT candidates FROM cells WHERE id = $1', [id]);
+  if (!cellRes.rows.length) return null;
+  let candidates = cellRes.rows[0].candidates;
+
+  candidates = Array.isArray(candidates) ? candidates : [];
+
+  let best = null;
+  const rest = [];
+  for (const cand of candidates) {
+    if (
+      cand.id === matchUri ||
+      cand.name?.uri === matchUri
+    ) {
+      best = { ...cand, match: true, score: score }; // aggiorna score e match
+    } else {
+      rest.push({ ...cand, match: false });
+    }
+  }
+
+  const newCandidates = best
+    ? [best, ...rest]
+    : [
+        {
+          id: matchUri,
+          name: { uri: matchUri, value: '' },
+          match: true,
+          score: score
+        },
+        ...rest
+      ];
+
+  const res = await pool.query(
     `UPDATE cells 
-     SET match_id = $1, score = $2
-     WHERE id = $3 RETURNING *`,
-    [matchUri, score, id]
+     SET match_id = $1, score = $2, candidates = $3
+     WHERE id = $4 RETURNING *`,
+    [matchUri, score, JSON.stringify(newCandidates), id]
   );
   return res.rows[0];
 }
