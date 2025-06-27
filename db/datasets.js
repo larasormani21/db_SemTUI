@@ -10,8 +10,16 @@ export async function getDatasetById(id) {
   return res.rows;
 }
 
-export async function getDatasetsByUserId(userId) {
-  const res = await pool.query('SELECT * FROM datasets WHERE user_id = $1', [userId]);
+export async function getDatasetsByUserId(userId, orderBy = 'name', order = 'ASC') {
+  const allowedOrderBy = ['name', 'id', 'created_at'];
+  const allowedOrder = ['ASC', 'DESC'];
+  const orderBySafe = allowedOrderBy.includes(orderBy) ? orderBy : 'name';
+  const orderSafe = allowedOrder.includes(order.toUpperCase()) ? order.toUpperCase() : 'ASC';
+
+  const res = await pool.query(
+    `SELECT * FROM datasets WHERE user_id = $1 ORDER BY ${orderBySafe} ${orderSafe}`,
+    [userId]
+  );
   return res.rows;
 }
 

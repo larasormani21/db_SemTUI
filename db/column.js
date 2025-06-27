@@ -49,7 +49,7 @@ export async function updateColumnName(id, name) {
   return res.rows[0];
 }
 
-export async function updateReconciliationColumn(id, status = "reconciliated", context, isEntity, metadata, annotationMeta) {
+export async function updateReconciliationColumn(id, status = "reconciliated", context = {}, isEntity = false, metadata = [], annotationMeta = {}) {
   const res = await pool.query(
     `UPDATE columns 
      SET status = $1, context = $2, is_entity = $3, metadata = $4, annotation_meta = $5

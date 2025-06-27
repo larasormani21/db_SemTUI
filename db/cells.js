@@ -28,6 +28,20 @@ export async function getResultById(id) {
   return res.rows[0];
 }
 
+export async function getBestCandidateInfoByCellId(cellId) {
+  const res = await pool.query(
+    `
+    SELECT cand AS candidate
+    FROM cells,
+         jsonb_array_elements(candidates) AS cand
+    WHERE id = $1
+      AND cand->'name'->>'uri' = (SELECT match_id FROM cells WHERE id = $1)
+    `,
+    [cellId]
+  );
+  return res.rows[0]?.candidate || null;
+}
+
 export async function countResultsByColumnId(columnId) {
   const res = await pool.query(
     `SELECT COUNT(*) AS count FROM cells WHERE column_id = $1`,
@@ -47,12 +61,12 @@ export async function countResultsByTableId(tableId) {
   return parseInt(res.rows[0].count, 10);
 }
 
-export async function createResult(columnId, rowIndex, cellValue, bestMatchUri = null, bestMatchLabel = null, score = null, candidates = [], annotationMeta = {}) {
+export async function createCell(columnId, rowIndex, cellValue, matchUri = null, score = null, candidates = [], annotationMeta = {}) {
   const res = await pool.query(
     `INSERT INTO cells 
-      (column_id, row_index, cell_value, best_match_uri, best_match_label, score, candidates, annotation_meta)
-     VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *`,
-    [columnId, rowIndex, cellValue, bestMatchUri, bestMatchLabel, score, JSON.stringify(candidates), JSON.stringify(annotationMeta)]
+      (column_id, row_index, cell_value, match_id, score, candidates, annotation_meta)
+     VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`,
+    [columnId, rowIndex, cellValue, matchUri, score, JSON.stringify(candidates), JSON.stringify(annotationMeta)]
   );
   return res.rows[0];
 }
@@ -65,30 +79,30 @@ export async function updateCellLabel(id, cellValue) {
   return res.rows[0];
 }
 
-export async function updateReconciliationResultById(id, bestMatchUri, bestMatchLabel, score, candidates = [], annotationMeta = {}) {
+export async function updateReconciliationResultById(id, matchUri, score, candidates = [], annotationMeta = {}) {
   const res = await pool.query(
-    `UPDATE cells SET best_match_uri = $1, best_match_label = $2, score = $3, candidates = $4, annotation_meta = $5 WHERE id = $6 RETURNING *`,
-    [bestMatchUri, bestMatchLabel, score, JSON.stringify(candidates), JSON.stringify(annotationMeta), id]
+    `UPDATE cells SET match_id = $1, score = $2, candidates = $3, annotation_meta = $4 WHERE id = $5 RETURNING *`,
+    [matchUri, score, JSON.stringify(candidates), JSON.stringify(annotationMeta), id]
   );
   return res.rows[0];
 }
 
-export async function updateReconciliationResultByColumnIdAndRow(columnId, rowIndex, bestMatchUri, bestMatchLabel, score, candidates = [], annotationMeta = {}) {
+export async function updateReconciliationResultByColumnIdAndRow(columnId, rowIndex, matchUri, score, candidates = [], annotationMeta = {}) {
   const res = await pool.query(
     `UPDATE cells 
-     SET best_match_uri = $1, best_match_label = $2, score = $3, candidates = $4, annotation_meta = $5 
+     SET match_id = $1, score = $2, candidates = $3, annotation_meta = $4 
      WHERE column_id = $6 AND row_index = $7 RETURNING *`,
-    [bestMatchUri, bestMatchLabel, score, JSON.stringify(candidates), JSON.stringify(annotationMeta), columnId, rowIndex]
+    [matchUri, score, JSON.stringify(candidates), JSON.stringify(annotationMeta), columnId, rowIndex]
   );
   return res.rows[0];
 }
 
-export async function updateBestMatchById(id, bestMatchUri, bestMatchLabel, score) {
+export async function updateMatchById(id, matchUri, score) {
   const res = await pool.query()(
     `UPDATE cells 
-     SET best_match_uri = $1, best_match_label = $2, score = $3
-     WHERE id = $4 RETURNING *`,
-    [bestMatchUri, bestMatchLabel, score, id]
+     SET match_id = $1, score = $2
+     WHERE id = $3 RETURNING *`,
+    [matchUri, score, id]
   );
   return res.rows[0];
 }

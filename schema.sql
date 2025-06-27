@@ -51,8 +51,7 @@ CREATE TABLE cells (
     column_id INTEGER REFERENCES columns(id) ON DELETE CASCADE,
     row_index INTEGER NOT NULL,
     cell_value TEXT,
-    best_match_uri TEXT,
-    best_match_label TEXT,
+    match_id TEXT,
     score REAL,
     candidates JSONB DEFAULT '[]',
     annotation_meta JSONB DEFAULT '{}', 
@@ -113,6 +112,7 @@ BEGIN
       JOIN columns c ON rr.column_id = c.id
       WHERE c.table_id = col_table_id AND c.status = 'reconciliated'
     ),
+    rdf = '{}'::jsonb,
     last_modified_date = CURRENT_TIMESTAMP
   WHERE t.id = col_table_id;
 
@@ -126,11 +126,6 @@ FOR EACH ROW
 EXECUTE FUNCTION update_table_stats();
 
 CREATE TRIGGER trg_update_table_stats_on_columns
-AFTER INSERT OR UPDATE OF status OR DELETE ON columns
-FOR EACH STATEMENT
-EXECUTE FUNCTION update_table_stats();
-
-CREATE TRIGGER trg_update_table_stats_on_columns_1
 AFTER INSERT OR UPDATE OR DELETE ON columns
 FOR EACH ROW
 EXECUTE FUNCTION update_table_stats();

@@ -81,7 +81,7 @@ export async function deleteTable(id) {
 
 export async function printTableByTableId(tableId) {
   const res = await pool.query(
-    `SELECT c.name AS column_name, rr.row_index, rr.best_match_uri, rr.cell_value
+    `SELECT c.name AS column_name, rr.row_index, rr.match_id, rr.cell_value
      FROM cells rr
      JOIN columns c ON rr.column_id = c.id
      WHERE c.table_id = $1
@@ -93,12 +93,11 @@ export async function printTableByTableId(tableId) {
   const rows = {};
   const columns = new Set();
 
-  for (const { column_name, row_index, cell_value, best_match_uri } of res.rows) {
+  for (const { column_name, row_index, cell_value, match_id } of res.rows) {
     columns.add(column_name);
     if (!rows[row_index]) rows[row_index] = {};
-    // Mostra sia il valore che la URI (se presente)
-    rows[row_index][column_name] = best_match_uri
-      ? `${cell_value} ${best_match_uri}`
+    rows[row_index][column_name] = match_id
+      ? `${cell_value} ${match_id}`
       : cell_value ?? '';
   }
 

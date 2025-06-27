@@ -17,7 +17,9 @@ async function processUsers() {
     if (!username || !password) continue;
     const existing = await db.getUserByUsername(username);
     if (existing) continue;
+    console.time('Tempo creazione utente');
     await db.createUser(username, password);
+    console.timeEnd('Tempo creazione utente');
   }
 }
 
@@ -27,7 +29,9 @@ async function processDatasets() {
   const json = JSON.parse(content);
   const datasets = json.datasets;
   for (const ds of Object.values(datasets)) {
+    console.time('Tempo creazione dataset');
     await db.createDataset(ds.userId, ds.name, ds.description);
+    console.timeEnd('Tempo creazione dataset');
   }
 }
 
@@ -37,6 +41,7 @@ async function processTables() {
   const json = JSON.parse(content);
   const tables = json.tables;
   for (const t of Object.values(tables)) {
+    console.time('Tempo creazione tabella');
     await db.createTable(
       t.idDataset,
       t.name,
@@ -45,6 +50,7 @@ async function processTables() {
       t.nCells || 0,
       t.nCellsReconciliated || 0
     );
+    console.timeEnd('Tempo creazione tabella');
   }
 }
 
@@ -52,46 +58,47 @@ function normalizeColName(name) {
   return name.replace(/^\uFEFF/, '').trim();
 }
 
-async function processColumnsAndResults(tableId) {
-  const filePath = path.join(dataDir, '126_big.json');
+async function processColumnsAndResults(tableId, file) {
+  const filePath = path.join(dataDir, file);
   const content = await fs.readFile(filePath, 'utf-8');
   const json = JSON.parse(content);
 
-  // Columns
   if (json.columns) {
     const columns = {};
     let colIndex = 0;
-    // Creazione colonne
+    console.time('Tempo creazione colonne');
     for (const [colName, col] of Object.entries(json.columns)) {
-      const normColName = normalizeColName(colName);
+      //const normColName = normalizeColName(colName);
       const dbCol = await db.createColumn(
         tableId,
-        normColName,
+        colName,
         col.status || null,
         col.context || {},
         col.kind === 'entity',
         col.metadata || [],
         col.annotationMeta || {}
       );
-      columns[normColName] = dbCol.id;
+      columns[colName] = dbCol.id;
       colIndex++;
     }
-    // Reconciliation Results
+    console.timeEnd('Tempo creazione colonne');
+
+    console.time('Tempo creazione celle');
     if (json.rows) {
   for (const [rowKey, row] of Object.entries(json.rows)) {
     if (!row.cells) continue;
     const rowIndex = parseInt(rowKey.replace('r', ''));
     // Parsing celle
     for (const [colName, cell] of Object.entries(row.cells)) {
-      const normColName = normalizeColName(colName);
-      const columnId = columns[normColName];
+      //const normColName = normalizeColName(colName);
+      const columnId = columns[colName];
       if (!columnId) continue;
-      await db.createResult(
+      console.log("loggg")
+      await db.createCell(
         columnId,
         rowIndex,
         cell.label,
-        cell.metadata && cell.metadata[0] && cell.metadata[0].name && cell.metadata[0].name.uri ? cell.metadata[0].name.uri : null,
-        cell.metadata && cell.metadata[0] && cell.metadata[0].name && cell.metadata[0].name.value ? cell.metadata[0].name.value : null,
+        cell.metadata && cell.metadata[0] && cell.metadata[0].id ? cell.metadata[0].id : null,
         cell.metadata && cell.metadata[0] && cell.metadata[0].score ? cell.metadata[0].score : null,
         cell.metadata ? cell.metadata : [],
         cell.annotationMeta ? cell.annotationMeta : {}
@@ -99,6 +106,7 @@ async function processColumnsAndResults(tableId) {
     }
   }
 }
+console.timeEnd('Tempo creazione celle');
   }
 }
 
@@ -111,7 +119,7 @@ async function processExtensionJson(tableId, extensionFilePath) {
   const columnMetas = {};
   for (const meta of extJson.meta) {
     let isEntity = !!meta.type;
-    let metadata = [meta]; // inserisci l'intero oggetto meta in un array
+    let metadata = [meta];
     const col = await db.createColumn(
       tableId,
       meta.id,
@@ -137,19 +145,17 @@ async function processExtensionJson(tableId, extensionFilePath) {
       const first = values[0];
       let cellValue = first.name || first.str || first.id || '';
       let bestMatchUri = null;
-      let bestMatchLabel = null;
 
       if (isEntity) {
         bestMatchUri = first.id || null;
         bestMatchLabel = first.name || null;
       }
 
-      await db.createResult(
+      await db.createTable(
         columnId,
         rowIndex,
         cellValue,
         bestMatchUri,
-        bestMatchLabel,
         null,           
         values,         
         {}
@@ -159,10 +165,14 @@ async function processExtensionJson(tableId, extensionFilePath) {
   }
 }
 
-async function testQueries() {
+async function testAllQueryUseCase1() {
+
+}
+
+async function testQuery() {
   console.time('Tempo di esecuzione');
   //const results = await db.deleteTable(5);
-  const results = await db.searchCandidatesByLabelSubstring('A', 52)
+  const results = await db.createTable(1, 'Use case 2');
   console.timeEnd('Tempo di esecuzione');
   console.dir(results, { depth: null, colors: true });
 }
@@ -171,11 +181,9 @@ async function run() {
   //await processUsers();
   //await processDatasets();
   //await processTables();
-  //await testQueries();
-  //await processColumnsAndResults(8);
+  //await processColumnsAndResults(1, '1.json');
   //await processExtensionJson(1, path.join(dataDir, '1.extension.response.json'));
-  await testQueries();
-  // await printTableByTableId(1);  
+  await testQuery();
 }
 
 run().catch(console.error);

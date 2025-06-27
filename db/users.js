@@ -35,9 +35,10 @@ export async function createUser(username, password) {
 }
 
 export async function updateUser(id, newUsername, newPassword) {
+  const hashed = await bcrypt.hash(newPassword, 10);
   const res = await pool.query(
     'UPDATE users SET username = $1, password = $2 WHERE id = $3 RETURNING id, username, created_at',
-    [newUsername, newPassword, id]
+    [newUsername, hashed, id]
   );
   return res.rows[0];
 }
