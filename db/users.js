@@ -20,6 +20,11 @@ export async function getUserById(id) {
   return res.rows[0];
 }
 
+export async function getIdByUser(username) {
+  const res = await pool.query('SELECT id FROM users WHERE username = $1', [username]);
+  return res.rows[0]?.id;
+}
+
 export async function getUserByUsername(username) {
   const res = await pool.query('SELECT * FROM users WHERE username = $1', [username]);
   return res.rows[0];

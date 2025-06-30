@@ -31,7 +31,7 @@ export async function getColumnByName(tableId, name) {
   return res.rows[0];
 }
 
-export async function createColumn(tableId, name, status = null, context = {}, isEntity = false, metadata = [], annotationMeta = {}) {
+export async function createColumn(tableId, name, status = "empty", context = {}, isEntity = false, metadata = [], annotationMeta = {}) {
   const res = await pool.query(
     `INSERT INTO columns 
       (table_id, name, status, context, is_entity, metadata, annotation_meta)
@@ -171,6 +171,5 @@ export async function getMetadataByColumnId(columnId) {
     [columnId]
   );
   if (!res.rows.length) return null;
-  // Restituisce l'oggetto metadata già come oggetto JS
   return res.rows[0].metadata;
 }

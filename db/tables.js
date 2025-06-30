@@ -5,10 +5,14 @@ export async function getAllTables() {
   return res.rows;
 }
 
-export async function getTablesByDatasetId(datasetId) {
+export async function getTablesByDatasetId(datasetId, orderBy = 'name', order = 'ASC') {
+  const allowedOrderBy = ['name', 'id', 'created_at', 'num_col', 'num_rows', 'num_cells', 'num_cells_reconciliated', 'last_modified_date'];
+  const allowedOrder = ['ASC', 'DESC'];
+  const orderBySafe = allowedOrderBy.includes(orderBy) ? orderBy : 'name';
+  const orderSafe = allowedOrder.includes(order.toUpperCase()) ? order.toUpperCase() : 'ASC';
   const res = await pool.query(
     `SELECT *
-     FROM tables WHERE dataset_id = $1 ORDER BY created_at DESC`, 
+     FROM tables WHERE dataset_id = $1 ORDER BY ${orderBySafe} ${orderSafe}`, 
     [datasetId]
   );
   return res.rows;

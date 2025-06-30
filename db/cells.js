@@ -111,7 +111,7 @@ export async function updateMatchById(id, matchUri, score) {
       cand.id === matchUri ||
       cand.name?.uri === matchUri
     ) {
-      best = { ...cand, match: true, score: score }; // aggiorna score e match
+      best = { ...cand, match: true, score: score };
     } else {
       rest.push({ ...cand, match: false });
     }
