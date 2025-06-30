@@ -1,4 +1,3 @@
-
 -- 1. Utenti
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
@@ -42,6 +41,7 @@ CREATE TABLE columns (
     is_entity BOOLEAN DEFAULT FALSE,
     metadata JSONB DEFAULT '[]',
     annotation_meta JSONB DEFAULT '{}',
+    source_column_id INTEGER REFERENCES columns(id),
     UNIQUE (table_id, name)
 );
 

@@ -1,0 +1,1345 @@
+{
+    "columns": {
+        "﻿buyer": {
+            "id": "﻿buyer",
+            "label": "﻿buyer",
+            "status": "empty",
+            "context": {},
+            "metadata": []
+        },
+        "answer": {
+            "id": "answer",
+            "label": "answer",
+            "status": "empty",
+            "context": {},
+            "metadata": []
+        },
+        "street": {
+            "id": "street",
+            "label": "street",
+            "status": "empty",
+            "context": {},
+            "metadata": []
+        },
+        "locality": {
+            "id": "locality",
+            "label": "locality",
+            "status": "empty",
+            "context": {},
+            "metadata": []
+        },
+        "postcode": {
+            "id": "postcode",
+            "label": "postcode",
+            "status": "empty",
+            "context": {},
+            "metadata": []
+        },
+        "country": {
+            "id": "country",
+            "label": "country",
+            "status": "empty",
+            "context": {},
+            "metadata": []
+        }
+    },
+    "rows": {
+        "r0": {
+            "id": "r0",
+            "cells": {
+                "﻿buyer": {
+                    "id": "r0$﻿buyer",
+                    "label": "EMPRESA DE TRANSFORMACIÓN AGRARIA S.A.,S.M.E., M.P., (TRAGSA)",
+                    "metadata": []
+                },
+                "answer": {
+                    "id": "r0$answer",
+                    "label": "Q5799682",
+                    "metadata": []
+                },
+                "street": {
+                    "id": "r0$street",
+                    "label": "MALDONADO 58",
+                    "metadata": []
+                },
+                "locality": {
+                    "id": "r0$locality",
+                    "label": "MADRID",
+                    "metadata": []
+                },
+                "postcode": {
+                    "id": "r0$postcode",
+                    "label": "28006",
+                    "metadata": []
+                },
+                "country": {
+                    "id": "r0$country",
+                    "label": "SPAIN",
+                    "metadata": []
+                }
+            }
+        },
+        "r1": {
+            "id": "r1",
+            "cells": {
+                "﻿buyer": {
+                    "id": "r1$﻿buyer",
+                    "label": "AENA, S.M.E., S.A.",
+                    "metadata": []
+                },
+                "answer": {
+                    "id": "r1$answer",
+                    "label": "Q19826726",
+                    "metadata": []
+                },
+                "street": {
+                    "id": "r1$street",
+                    "label": "C/ PEONÍAS, 12 REGISTRO GENERAL",
+                    "metadata": []
+                },
+                "locality": {
+                    "id": "r1$locality",
+                    "label": "MADRID",
+                    "metadata": []
+                },
+                "postcode": {
+                    "id": "r1$postcode",
+                    "label": "28042",
+                    "metadata": []
+                },
+                "country": {
+                    "id": "r1$country",
+                    "label": "SPAIN",
+                    "metadata": []
+                }
+            }
+        },
+        "r2": {
+            "id": "r2",
+            "cells": {
+                "﻿buyer": {
+                    "id": "r2$﻿buyer",
+                    "label": "SERVICIO MADRILENO DE SALUD, HOSPITAL UNIVERSITARIO LA PAZ",
+                    "metadata": []
+                },
+                "answer": {
+                    "id": "r2$answer",
+                    "label": "Q6126030",
+                    "metadata": []
+                },
+                "street": {
+                    "id": "r2$street",
+                    "label": "Pº DE LA CASTELLANA, 261",
+                    "metadata": []
+                },
+                "locality": {
+                    "id": "r2$locality",
+                    "label": "MADRID",
+                    "metadata": []
+                },
+                "postcode": {
+                    "id": "r2$postcode",
+                    "label": "28046",
+                    "metadata": []
+                },
+                "country": {
+                    "id": "r2$country",
+                    "label": "SPAIN",
+                    "metadata": []
+                }
+            }
+        },
+        "r3": {
+            "id": "r3",
+            "cells": {
+                "﻿buyer": {
+                    "id": "r3$﻿buyer",
+                    "label": "FERROCARRILS DE LA GENERALITAT DE CATALUNYA",
+                    "metadata": []
+                },
+                "answer": {
+                    "id": "r3$answer",
+                    "label": "Q83819",
+                    "metadata": []
+                },
+                "street": {
+                    "id": "r3$street",
+                    "label": "C. DELS VERGÓS, 44",
+                    "metadata": []
+                },
+                "locality": {
+                    "id": "r3$locality",
+                    "label": "BARCELONA",
+                    "metadata": []
+                },
+                "postcode": {
+                    "id": "r3$postcode",
+                    "label": "8017",
+                    "metadata": []
+                },
+                "country": {
+                    "id": "r3$country",
+                    "label": "SPAIN",
+                    "metadata": []
+                }
+            }
+        },
+        "r4": {
+            "id": "r4",
+            "cells": {
+                "﻿buyer": {
+                    "id": "r4$﻿buyer",
+                    "label": "OSAKIDETZA - SERVICIO VASCO DE SALUD - ORGANIZACIÓN CENTRAL",
+                    "metadata": []
+                },
+                "answer": {
+                    "id": "r4$answer",
+                    "label": "Q3822645",
+                    "metadata": []
+                },
+                "street": {
+                    "id": "r4$street",
+                    "label": "ALAVA, 45",
+                    "metadata": []
+                },
+                "locality": {
+                    "id": "r4$locality",
+                    "label": "VITORIA-GASTEIZ",
+                    "metadata": []
+                },
+                "postcode": {
+                    "id": "r4$postcode",
+                    "label": "1006",
+                    "metadata": []
+                },
+                "country": {
+                    "id": "r4$country",
+                    "label": "SPAIN",
+                    "metadata": []
+                }
+            }
+        },
+        "r5": {
+            "id": "r5",
+            "cells": {
+                "﻿buyer": {
+                    "id": "r5$﻿buyer",
+                    "label": "HEALTH SERVICE EXECUTIVE (HSE)",
+                    "metadata": []
+                },
+                "answer": {
+                    "id": "r5$answer",
+                    "label": "Q5690681",
+                    "metadata": []
+                },
+                "street": {
+                    "id": "r5$street",
+                    "label": "HEAD OFFICE",
+                    "metadata": []
+                },
+                "locality": {
+                    "id": "r5$locality",
+                    "label": "NAAS",
+                    "metadata": []
+                },
+                "postcode": {
+                    "id": "r5$postcode",
+                    "label": "MILLENNIUM PARK",
+                    "metadata": []
+                },
+                "country": {
+                    "id": "r5$country",
+                    "label": "IRELAND",
+                    "metadata": []
+                }
+            }
+        },
+        "r6": {
+            "id": "r6",
+            "cells": {
+                "﻿buyer": {
+                    "id": "r6$﻿buyer",
+                    "label": "DIRECCIÓN DE COMPRAS DE LA CORPORACIÓN DE RADIO Y TELEVISIÓN ESPAÑOLA S.A.",
+                    "metadata": []
+                },
+                "answer": {
+                    "id": "r6$answer",
+                    "label": "Q55259925",
+                    "metadata": []
+                },
+                "street": {
+                    "id": "r6$street",
+                    "label": "AVDA. RADIOTELEVISIÓN, 4",
+                    "metadata": []
+                },
+                "locality": {
+                    "id": "r6$locality",
+                    "label": "POZUELO DE ALARCÓN",
+                    "metadata": []
+                },
+                "postcode": {
+                    "id": "r6$postcode",
+                    "label": "28223",
+                    "metadata": []
+                },
+                "country": {
+                    "id": "r6$country",
+                    "label": "SPAIN",
+                    "metadata": []
+                }
+            }
+        },
+        "r7": {
+            "id": "r7",
+            "cells": {
+                "﻿buyer": {
+                    "id": "r7$﻿buyer",
+                    "label": "CONSIP S.P.A. A SOCIO UNICO",
+                    "metadata": []
+                },
+                "answer": {
+                    "id": "r7$answer",
+                    "label": "Q3687413",
+                    "metadata": []
+                },
+                "street": {
+                    "id": "r7$street",
+                    "label": "VIA ISONZO, 19/E",
+                    "metadata": []
+                },
+                "locality": {
+                    "id": "r7$locality",
+                    "label": "ROMA",
+                    "metadata": []
+                },
+                "postcode": {
+                    "id": "r7$postcode",
+                    "label": "198",
+                    "metadata": []
+                },
+                "country": {
+                    "id": "r7$country",
+                    "label": "ITALY",
+                    "metadata": []
+                }
+            }
+        },
+        "r8": {
+            "id": "r8",
+            "cells": {
+                "﻿buyer": {
+                    "id": "r8$﻿buyer",
+                    "label": "INVITALIA",
+                    "metadata": []
+                },
+                "answer": {
+                    "id": "r8$answer",
+                    "label": "Q1671811",
+                    "metadata": []
+                },
+                "street": {
+                    "id": "r8$street",
+                    "label": "VIA CALABRIA, 46",
+                    "metadata": []
+                },
+                "locality": {
+                    "id": "r8$locality",
+                    "label": "ROMA",
+                    "metadata": []
+                },
+                "postcode": {
+                    "id": "r8$postcode",
+                    "label": "",
+                    "metadata": []
+                },
+                "country": {
+                    "id": "r8$country",
+                    "label": "ITALY",
+                    "metadata": []
+                }
+            }
+        },
+        "r9": {
+            "id": "r9",
+            "cells": {
+                "﻿buyer": {
+                    "id": "r9$﻿buyer",
+                    "label": "SERVICIO DE SALUD DE LAS ILLES BALEARS",
+                    "metadata": []
+                },
+                "answer": {
+                    "id": "r9$answer",
+                    "label": "Q6126129",
+                    "metadata": []
+                },
+                "street": {
+                    "id": "r9$street",
+                    "label": "C/ REINA ESCLARAMUNDA",
+                    "metadata": []
+                },
+                "locality": {
+                    "id": "r9$locality",
+                    "label": "PALMA",
+                    "metadata": []
+                },
+                "postcode": {
+                    "id": "r9$postcode",
+                    "label": "7003",
+                    "metadata": []
+                },
+                "country": {
+                    "id": "r9$country",
+                    "label": "SPAIN",
+                    "metadata": []
+                }
+            }
+        },
+        "r10": {
+            "id": "r10",
+            "cells": {
+                "﻿buyer": {
+                    "id": "r10$﻿buyer",
+                    "label": "CENTRO HOSPITALAR UNIVERSITÁRIO DE LISBOA NORTE, E.P.E.",
+                    "metadata": []
+                },
+                "answer": {
+                    "id": "r10$answer",
+                    "label": "Q29524946",
+                    "metadata": []
+                },
+                "street": {
+                    "id": "r10$street",
+                    "label": "LISBOA",
+                    "metadata": []
+                },
+                "locality": {
+                    "id": "r10$locality",
+                    "label": "LISBOA",
+                    "metadata": []
+                },
+                "postcode": {
+                    "id": "r10$postcode",
+                    "label": "1649-035",
+                    "metadata": []
+                },
+                "country": {
+                    "id": "r10$country",
+                    "label": "PORTUGAL",
+                    "metadata": []
+                }
+            }
+        },
+        "r11": {
+            "id": "r11",
+            "cells": {
+                "﻿buyer": {
+                    "id": "r11$﻿buyer",
+                    "label": "EJIE, S.A. - SOCIEDAD INFORMÁTICA DEL GOBIERNO VASCO - EJIE-SOCIEDAD INFORMÁTICA DEL GOBIERNO VASCO",
+                    "metadata": []
+                },
+                "answer": {
+                    "id": "r11$answer",
+                    "label": "Q92076530",
+                    "metadata": []
+                },
+                "street": {
+                    "id": "r11$street",
+                    "label": "MEDITERRÁNEO, 14 01010 VITORIA-GASTEIZ",
+                    "metadata": []
+                },
+                "locality": {
+                    "id": "r11$locality",
+                    "label": "VITORIA-GASTEIZ",
+                    "metadata": []
+                },
+                "postcode": {
+                    "id": "r11$postcode",
+                    "label": "1010",
+                    "metadata": []
+                },
+                "country": {
+                    "id": "r11$country",
+                    "label": "SPAIN",
+                    "metadata": []
+                }
+            }
+        },
+        "r12": {
+            "id": "r12",
+            "cells": {
+                "﻿buyer": {
+                    "id": "r12$﻿buyer",
+                    "label": "AXENCIA PARA A MODERNIZACIÓN TECNOLÓXICA DE GALICIA - XUNTA DE GALICIA",
+                    "metadata": []
+                },
+                "answer": {
+                    "id": "r12$answer",
+                    "label": "Q12383972",
+                    "metadata": []
+                },
+                "street": {
+                    "id": "r12$street",
+                    "label": "EDIFICIO CINC, MONTE GAIÁS, S/N.",
+                    "metadata": []
+                },
+                "locality": {
+                    "id": "r12$locality",
+                    "label": "SANTIAGO DE COMPOSTELA",
+                    "metadata": []
+                },
+                "postcode": {
+                    "id": "r12$postcode",
+                    "label": "15781",
+                    "metadata": []
+                },
+                "country": {
+                    "id": "r12$country",
+                    "label": "SPAIN",
+                    "metadata": []
+                }
+            }
+        },
+        "r13": {
+            "id": "r13",
+            "cells": {
+                "﻿buyer": {
+                    "id": "r13$﻿buyer",
+                    "label": "HOSPITAL CLÍNIC DE BARCELONA",
+                    "metadata": []
+                },
+                "answer": {
+                    "id": "r13$answer",
+                    "label": "Q2371388",
+                    "metadata": []
+                },
+                "street": {
+                    "id": "r13$street",
+                    "label": "VILLARROEL, 170 ENTRE ESCALES 1 I 2, 3ª PL.",
+                    "metadata": []
+                },
+                "locality": {
+                    "id": "r13$locality",
+                    "label": "BARCELONA",
+                    "metadata": []
+                },
+                "postcode": {
+                    "id": "r13$postcode",
+                    "label": "8036",
+                    "metadata": []
+                },
+                "country": {
+                    "id": "r13$country",
+                    "label": "SPAIN",
+                    "metadata": []
+                }
+            }
+        },
+        "r14": {
+            "id": "r14",
+            "cells": {
+                "﻿buyer": {
+                    "id": "r14$﻿buyer",
+                    "label": "SPMS - SERVIÇOS PARTILHADOS DO MINISTÉRIO DA SAÚDE, E. P. E.",
+                    "metadata": []
+                },
+                "answer": {
+                    "id": "r14$answer",
+                    "label": "Q52844354",
+                    "metadata": []
+                },
+                "street": {
+                    "id": "r14$street",
+                    "label": "AVENIDA DA REPÚBLICA, 61",
+                    "metadata": []
+                },
+                "locality": {
+                    "id": "r14$locality",
+                    "label": "LISBOA",
+                    "metadata": []
+                },
+                "postcode": {
+                    "id": "r14$postcode",
+                    "label": "1050-189",
+                    "metadata": []
+                },
+                "country": {
+                    "id": "r14$country",
+                    "label": "PORTUGAL",
+                    "metadata": []
+                }
+            }
+        },
+        "r15": {
+            "id": "r15",
+            "cells": {
+                "﻿buyer": {
+                    "id": "r15$﻿buyer",
+                    "label": "IARNRÓD EIREANN-IRISH RAIL",
+                    "metadata": []
+                },
+                "answer": {
+                    "id": "r15$answer",
+                    "label": "Q73043",
+                    "metadata": []
+                },
+                "street": {
+                    "id": "r15$street",
+                    "label": "CONNOLLY STATION,",
+                    "metadata": []
+                },
+                "locality": {
+                    "id": "r15$locality",
+                    "label": "DUBLIN",
+                    "metadata": []
+                },
+                "postcode": {
+                    "id": "r15$postcode",
+                    "label": "DUBLIN",
+                    "metadata": []
+                },
+                "country": {
+                    "id": "r15$country",
+                    "label": "IRELAND",
+                    "metadata": []
+                }
+            }
+        },
+        "r16": {
+            "id": "r16",
+            "cells": {
+                "﻿buyer": {
+                    "id": "r16$﻿buyer",
+                    "label": "INFRAESTRUTURAS DE PORTUGAL S.A.",
+                    "metadata": []
+                },
+                "answer": {
+                    "id": "r16$answer",
+                    "label": "Q20730106",
+                    "metadata": []
+                },
+                "street": {
+                    "id": "r16$street",
+                    "label": "PRAÇA DA PORTAGEM, ALMADA",
+                    "metadata": []
+                },
+                "locality": {
+                    "id": "r16$locality",
+                    "label": "ALMADA",
+                    "metadata": []
+                },
+                "postcode": {
+                    "id": "r16$postcode",
+                    "label": "2809-013",
+                    "metadata": []
+                },
+                "country": {
+                    "id": "r16$country",
+                    "label": "PORTUGAL",
+                    "metadata": []
+                }
+            }
+        },
+        "r17": {
+            "id": "r17",
+            "cells": {
+                "﻿buyer": {
+                    "id": "r17$﻿buyer",
+                    "label": "SERVICIO ANDALUZ DE SALUD. HOSPITAL UNIVERSITARIO REINA SOFÍA",
+                    "metadata": []
+                },
+                "answer": {
+                    "id": "r17$answer",
+                    "label": "Q4753529",
+                    "metadata": []
+                },
+                "street": {
+                    "id": "r17$street",
+                    "label": "AVDA. MENÉNDEZ PIDAL, S/N",
+                    "metadata": []
+                },
+                "locality": {
+                    "id": "r17$locality",
+                    "label": "CÓRDOBA",
+                    "metadata": []
+                },
+                "postcode": {
+                    "id": "r17$postcode",
+                    "label": "14004",
+                    "metadata": []
+                },
+                "country": {
+                    "id": "r17$country",
+                    "label": "SPAIN",
+                    "metadata": []
+                }
+            }
+        },
+        "r18": {
+            "id": "r18",
+            "cells": {
+                "﻿buyer": {
+                    "id": "r18$﻿buyer",
+                    "label": "RAI - RADIOTELEVISIONE ITALIANA S.P.A.",
+                    "metadata": []
+                },
+                "answer": {
+                    "id": "r18$answer",
+                    "label": "Q19616",
+                    "metadata": []
+                },
+                "street": {
+                    "id": "r18$street",
+                    "label": "VIALE GIUSEPPE MAZZINI, 14",
+                    "metadata": []
+                },
+                "locality": {
+                    "id": "r18$locality",
+                    "label": "ROMA",
+                    "metadata": []
+                },
+                "postcode": {
+                    "id": "r18$postcode",
+                    "label": "195",
+                    "metadata": []
+                },
+                "country": {
+                    "id": "r18$country",
+                    "label": "ITALY",
+                    "metadata": []
+                }
+            }
+        },
+        "r19": {
+            "id": "r19",
+            "cells": {
+                "﻿buyer": {
+                    "id": "r19$﻿buyer",
+                    "label": "SERVICIO CÁNTABRO DE SALUD",
+                    "metadata": []
+                },
+                "answer": {
+                    "id": "r19$answer",
+                    "label": "Q6126019",
+                    "metadata": []
+                },
+                "street": {
+                    "id": "r19$street",
+                    "label": "AVDA. CARDENAL HERRERA ORIA, S/N",
+                    "metadata": []
+                },
+                "locality": {
+                    "id": "r19$locality",
+                    "label": "SANTANDER",
+                    "metadata": []
+                },
+                "postcode": {
+                    "id": "r19$postcode",
+                    "label": "39011",
+                    "metadata": []
+                },
+                "country": {
+                    "id": "r19$country",
+                    "label": "SPAIN",
+                    "metadata": []
+                }
+            }
+        },
+        "r20": {
+            "id": "r20",
+            "cells": {
+                "﻿buyer": {
+                    "id": "r20$﻿buyer",
+                    "label": "CENTRE DE TELECOMUNICACIONS I TECNOLOGIES DE LA INFORMACIÓ DE LA GENERALITAT DE CATALUNYA",
+                    "metadata": []
+                },
+                "answer": {
+                    "id": "r20$answer",
+                    "label": "Q38188558",
+                    "metadata": []
+                },
+                "street": {
+                    "id": "r20$street",
+                    "label": "C/ SALVADOR ESPRIU, 45-51",
+                    "metadata": []
+                },
+                "locality": {
+                    "id": "r20$locality",
+                    "label": "L'HOSPITALET DE LLOBREGAT",
+                    "metadata": []
+                },
+                "postcode": {
+                    "id": "r20$postcode",
+                    "label": "E-08908",
+                    "metadata": []
+                },
+                "country": {
+                    "id": "r20$country",
+                    "label": "SPAIN",
+                    "metadata": []
+                }
+            }
+        },
+        "r21": {
+            "id": "r21",
+            "cells": {
+                "﻿buyer": {
+                    "id": "r21$﻿buyer",
+                    "label": "EUROPEAN FOOD SAFETY AUTHORITY (EFSA)",
+                    "metadata": []
+                },
+                "answer": {
+                    "id": "r21$answer",
+                    "label": "Q516521",
+                    "metadata": []
+                },
+                "street": {
+                    "id": "r21$street",
+                    "label": "VIA CARLO MAGNO 1A",
+                    "metadata": []
+                },
+                "locality": {
+                    "id": "r21$locality",
+                    "label": "PARMA",
+                    "metadata": []
+                },
+                "postcode": {
+                    "id": "r21$postcode",
+                    "label": "43126",
+                    "metadata": []
+                },
+                "country": {
+                    "id": "r21$country",
+                    "label": "ITALY",
+                    "metadata": []
+                }
+            }
+        },
+        "r22": {
+            "id": "r22",
+            "cells": {
+                "﻿buyer": {
+                    "id": "r22$﻿buyer",
+                    "label": "FUNDACIÓN DE GESTIÓN SANITARIA DEL HOSPITAL DE LA SANTA CREU I SANT PAU",
+                    "metadata": []
+                },
+                "answer": {
+                    "id": "r22$answer",
+                    "label": "Q507282",
+                    "metadata": []
+                },
+                "street": {
+                    "id": "r22$street",
+                    "label": "SANT ANTONI M. CLARET, 167 - PABELLÓN SANT ANTONI PLANTA BAJA",
+                    "metadata": []
+                },
+                "locality": {
+                    "id": "r22$locality",
+                    "label": "BARCELONA",
+                    "metadata": []
+                },
+                "postcode": {
+                    "id": "r22$postcode",
+                    "label": "8025",
+                    "metadata": []
+                },
+                "country": {
+                    "id": "r22$country",
+                    "label": "SPAIN",
+                    "metadata": []
+                }
+            }
+        },
+        "r23": {
+            "id": "r23",
+            "cells": {
+                "﻿buyer": {
+                    "id": "r23$﻿buyer",
+                    "label": "SERVICIO NAVARRO DE SALUD-OSASUNBIDEA",
+                    "metadata": []
+                },
+                "answer": {
+                    "id": "r23$answer",
+                    "label": "Q11703775",
+                    "metadata": []
+                },
+                "street": {
+                    "id": "r23$street",
+                    "label": "C/TUDELA, Nº20",
+                    "metadata": []
+                },
+                "locality": {
+                    "id": "r23$locality",
+                    "label": "PAMPLONA (NAVARRA)",
+                    "metadata": []
+                },
+                "postcode": {
+                    "id": "r23$postcode",
+                    "label": "31003",
+                    "metadata": []
+                },
+                "country": {
+                    "id": "r23$country",
+                    "label": "SPAIN",
+                    "metadata": []
+                }
+            }
+        },
+        "r24": {
+            "id": "r24",
+            "cells": {
+                "﻿buyer": {
+                    "id": "r24$﻿buyer",
+                    "label": "COMITÉ EJECUTIVO DE LA MANCOMUNIDAD DE LOS CANALES DEL TAIBILLA",
+                    "metadata": []
+                },
+                "answer": {
+                    "id": "r24$answer",
+                    "label": "Q71304122",
+                    "metadata": []
+                },
+                "street": {
+                    "id": "r24$street",
+                    "label": "MAYOR, 1",
+                    "metadata": []
+                },
+                "locality": {
+                    "id": "r24$locality",
+                    "label": "CARTAGENA",
+                    "metadata": []
+                },
+                "postcode": {
+                    "id": "r24$postcode",
+                    "label": "30201",
+                    "metadata": []
+                },
+                "country": {
+                    "id": "r24$country",
+                    "label": "SPAIN",
+                    "metadata": []
+                }
+            }
+        },
+        "r25": {
+            "id": "r25",
+            "cells": {
+                "﻿buyer": {
+                    "id": "r25$﻿buyer",
+                    "label": "SERVICIO ANDALUZ DE SALUD. SERVICIOS CENTRALES",
+                    "metadata": []
+                },
+                "answer": {
+                    "id": "r25$answer",
+                    "label": "Q4753529",
+                    "metadata": []
+                },
+                "street": {
+                    "id": "r25$street",
+                    "label": "AVDA. DE LA CONSTITUCIÓN, 18",
+                    "metadata": []
+                },
+                "locality": {
+                    "id": "r25$locality",
+                    "label": "SEVILLA",
+                    "metadata": []
+                },
+                "postcode": {
+                    "id": "r25$postcode",
+                    "label": "41071",
+                    "metadata": []
+                },
+                "country": {
+                    "id": "r25$country",
+                    "label": "SPAIN",
+                    "metadata": []
+                }
+            }
+        },
+        "r26": {
+            "id": "r26",
+            "cells": {
+                "﻿buyer": {
+                    "id": "r26$﻿buyer",
+                    "label": "AZIENDA USL DI BOLOGNA",
+                    "metadata": []
+                },
+                "answer": {
+                    "id": "r26$answer",
+                    "label": "Q30279882",
+                    "metadata": []
+                },
+                "street": {
+                    "id": "r26$street",
+                    "label": "VIA CASTIGLIONE 29",
+                    "metadata": []
+                },
+                "locality": {
+                    "id": "r26$locality",
+                    "label": "BOLOGNA",
+                    "metadata": []
+                },
+                "postcode": {
+                    "id": "r26$postcode",
+                    "label": "40124",
+                    "metadata": []
+                },
+                "country": {
+                    "id": "r26$country",
+                    "label": "ITALY",
+                    "metadata": []
+                }
+            }
+        },
+        "r27": {
+            "id": "r27",
+            "cells": {
+                "﻿buyer": {
+                    "id": "r27$﻿buyer",
+                    "label": "FUNDAÇÃO INATEL",
+                    "metadata": []
+                },
+                "answer": {
+                    "id": "r27$answer",
+                    "label": "Q116471362",
+                    "metadata": []
+                },
+                "street": {
+                    "id": "r27$street",
+                    "label": "CALÇADA DE SANT'ANA, 180",
+                    "metadata": []
+                },
+                "locality": {
+                    "id": "r27$locality",
+                    "label": "LISBOA",
+                    "metadata": []
+                },
+                "postcode": {
+                    "id": "r27$postcode",
+                    "label": "1169-062",
+                    "metadata": []
+                },
+                "country": {
+                    "id": "r27$country",
+                    "label": "PORTUGAL",
+                    "metadata": []
+                }
+            }
+        },
+        "r28": {
+            "id": "r28",
+            "cells": {
+                "﻿buyer": {
+                    "id": "r28$﻿buyer",
+                    "label": "SERVICIO MURCIANO DE SALUD",
+                    "metadata": []
+                },
+                "answer": {
+                    "id": "r28$answer",
+                    "label": "Q5407928",
+                    "metadata": []
+                },
+                "street": {
+                    "id": "r28$street",
+                    "label": "C/CENTRAL, 7. EDIFICIO HABITAMIA 1",
+                    "metadata": []
+                },
+                "locality": {
+                    "id": "r28$locality",
+                    "label": "MURCIA",
+                    "metadata": []
+                },
+                "postcode": {
+                    "id": "r28$postcode",
+                    "label": "30100",
+                    "metadata": []
+                },
+                "country": {
+                    "id": "r28$country",
+                    "label": "SPAIN",
+                    "metadata": []
+                }
+            }
+        },
+        "r29": {
+            "id": "r29",
+            "cells": {
+                "﻿buyer": {
+                    "id": "r29$﻿buyer",
+                    "label": "SECRETARIA GENERAL DEL SERVICIO DE SALUD DE CASTILLA-LA MANCHA",
+                    "metadata": []
+                },
+                "answer": {
+                    "id": "r29$answer",
+                    "label": "Q5665691",
+                    "metadata": []
+                },
+                "street": {
+                    "id": "r29$street",
+                    "label": "AVDA. RÍO GUADIANA, 4",
+                    "metadata": []
+                },
+                "locality": {
+                    "id": "r29$locality",
+                    "label": "TOLEDO",
+                    "metadata": []
+                },
+                "postcode": {
+                    "id": "r29$postcode",
+                    "label": "45071",
+                    "metadata": []
+                },
+                "country": {
+                    "id": "r29$country",
+                    "label": "SPAIN",
+                    "metadata": []
+                }
+            }
+        },
+        "r30": {
+            "id": "r30",
+            "cells": {
+                "﻿buyer": {
+                    "id": "r30$﻿buyer",
+                    "label": "OFFICE OF PUBLIC WORKS (OPW)",
+                    "metadata": []
+                },
+                "answer": {
+                    "id": "r30$answer",
+                    "label": "Q3247288",
+                    "metadata": []
+                },
+                "street": {
+                    "id": "r30$street",
+                    "label": "JONATHAN SWIFT STREET",
+                    "metadata": []
+                },
+                "locality": {
+                    "id": "r30$locality",
+                    "label": "TRIM",
+                    "metadata": []
+                },
+                "postcode": {
+                    "id": "r30$postcode",
+                    "label": "CO. MEATH, C15 NX36",
+                    "metadata": []
+                },
+                "country": {
+                    "id": "r30$country",
+                    "label": "IRELAND",
+                    "metadata": []
+                }
+            }
+        },
+        "r31": {
+            "id": "r31",
+            "cells": {
+                "﻿buyer": {
+                    "id": "r31$﻿buyer",
+                    "label": "PRESIDENCIA DE LA AUTORIDAD PORTUARIA DE BALEARES",
+                    "metadata": []
+                },
+                "answer": {
+                    "id": "r31$answer",
+                    "label": "Q21127330",
+                    "metadata": []
+                },
+                "street": {
+                    "id": "r31$street",
+                    "label": "MOLL VELL,3-5",
+                    "metadata": []
+                },
+                "locality": {
+                    "id": "r31$locality",
+                    "label": "PALMA DE MALLORCA",
+                    "metadata": []
+                },
+                "postcode": {
+                    "id": "r31$postcode",
+                    "label": "7012",
+                    "metadata": []
+                },
+                "country": {
+                    "id": "r31$country",
+                    "label": "SPAIN",
+                    "metadata": []
+                }
+            }
+        },
+        "r32": {
+            "id": "r32",
+            "cells": {
+                "﻿buyer": {
+                    "id": "r32$﻿buyer",
+                    "label": "VALENCIANA D'APROFITAMENT ENERGÈTIC DE RESIDUS S.A. (VAERSA)",
+                    "metadata": []
+                },
+                "answer": {
+                    "id": "r32$answer",
+                    "label": "Q20104610",
+                    "metadata": []
+                },
+                "street": {
+                    "id": "r32$street",
+                    "label": "AVDA. DE LAS CORTES VALENCIANAS, 20",
+                    "metadata": []
+                },
+                "locality": {
+                    "id": "r32$locality",
+                    "label": "VALENCIA",
+                    "metadata": []
+                },
+                "postcode": {
+                    "id": "r32$postcode",
+                    "label": "46015",
+                    "metadata": []
+                },
+                "country": {
+                    "id": "r32$country",
+                    "label": "SPAIN",
+                    "metadata": []
+                }
+            }
+        },
+        "r33": {
+            "id": "r33",
+            "cells": {
+                "﻿buyer": {
+                    "id": "r33$﻿buyer",
+                    "label": "GERENCIA DEL ÁREA DE SALUD DE BADAJOZ",
+                    "metadata": []
+                },
+                "answer": {
+                    "id": "r33$answer",
+                    "label": "Q2882027",
+                    "metadata": []
+                },
+                "street": {
+                    "id": "r33$street",
+                    "label": "AVDA. DE HUELVA, 8",
+                    "metadata": []
+                },
+                "locality": {
+                    "id": "r33$locality",
+                    "label": "BADAJOZ",
+                    "metadata": []
+                },
+                "postcode": {
+                    "id": "r33$postcode",
+                    "label": "6005",
+                    "metadata": []
+                },
+                "country": {
+                    "id": "r33$country",
+                    "label": "SPAIN",
+                    "metadata": []
+                }
+            }
+        },
+        "r34": {
+            "id": "r34",
+            "cells": {
+                "﻿buyer": {
+                    "id": "r34$﻿buyer",
+                    "label": "HOSPITAL UNIVERSITARIO PRÍNCIPE DE ASTURIAS",
+                    "metadata": []
+                },
+                "answer": {
+                    "id": "r34$answer",
+                    "label": "Q5902957",
+                    "metadata": []
+                },
+                "street": {
+                    "id": "r34$street",
+                    "label": "CARRETERA ALCALÁ-MECO, S/N",
+                    "metadata": []
+                },
+                "locality": {
+                    "id": "r34$locality",
+                    "label": "ALCALÁ DE HENARES",
+                    "metadata": []
+                },
+                "postcode": {
+                    "id": "r34$postcode",
+                    "label": "28805",
+                    "metadata": []
+                },
+                "country": {
+                    "id": "r34$country",
+                    "label": "SPAIN",
+                    "metadata": []
+                }
+            }
+        },
+        "r35": {
+            "id": "r35",
+            "cells": {
+                "﻿buyer": {
+                    "id": "r35$﻿buyer",
+                    "label": "PRESIDENCIA DE LA DIPUTACIÓN PROVINCIAL DE ALICANTE",
+                    "metadata": []
+                },
+                "answer": {
+                    "id": "r35$answer",
+                    "label": "Q28971559",
+                    "metadata": []
+                },
+                "street": {
+                    "id": "r35$street",
+                    "label": "AVDA. DE LA ESTACIÓN, 6",
+                    "metadata": []
+                },
+                "locality": {
+                    "id": "r35$locality",
+                    "label": "ALICANTE",
+                    "metadata": []
+                },
+                "postcode": {
+                    "id": "r35$postcode",
+                    "label": "3005",
+                    "metadata": []
+                },
+                "country": {
+                    "id": "r35$country",
+                    "label": "SPAIN",
+                    "metadata": []
+                }
+            }
+        },
+        "r36": {
+            "id": "r36",
+            "cells": {
+                "﻿buyer": {
+                    "id": "r36$﻿buyer",
+                    "label": "SPMS - SERVIÇOS PARTILHADOS DO MINISTÉRIO DA SAÚDE, E. P. E.",
+                    "metadata": []
+                },
+                "answer": {
+                    "id": "r36$answer",
+                    "label": "Q52844354",
+                    "metadata": []
+                },
+                "street": {
+                    "id": "r36$street",
+                    "label": "AVENIDA DA REPÚBLICA, N.º 61",
+                    "metadata": []
+                },
+                "locality": {
+                    "id": "r36$locality",
+                    "label": "LISBOA",
+                    "metadata": []
+                },
+                "postcode": {
+                    "id": "r36$postcode",
+                    "label": "1050-189",
+                    "metadata": []
+                },
+                "country": {
+                    "id": "r36$country",
+                    "label": "PORTUGAL",
+                    "metadata": []
+                }
+            }
+        }
+    },
+    "nCells": 222,
+    "nCellsReconciliated": 0
+}

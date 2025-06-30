@@ -93,7 +93,6 @@ export async function printTableByTableId(tableId) {
     [tableId]
   );
 
-  // Organizza i dati in formato tabellare
   const rows = {};
   const columns = new Set();
 
@@ -106,9 +105,7 @@ export async function printTableByTableId(tableId) {
   }
 
   const colArray = Array.from(columns);
-  // Stampa header
   console.log(['row_index', ...colArray].join('\t'));
-  // Stampa righe
   Object.entries(rows).forEach(([rowIdx, cells]) => {
     const row = [rowIdx, ...colArray.map(col => cells[col] ?? '')];
     console.log(row.join('\t'));

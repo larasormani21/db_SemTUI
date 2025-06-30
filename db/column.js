@@ -31,12 +31,35 @@ export async function getColumnByName(tableId, name) {
   return res.rows[0];
 }
 
-export async function createColumn(tableId, name, status = "empty", context = {}, isEntity = false, metadata = [], annotationMeta = {}) {
+export async function getExtendedColumnsBySource(sourceColumnId) {
+  const res = await pool.query(
+    `
+    SELECT *
+    FROM columns
+    WHERE source_column_id = $1
+    ORDER BY id
+    `,
+    [sourceColumnId]
+  );
+  return res.rows;
+}
+
+export async function getReconciliatedColumnsByTableId(tableId) {
+  const res = await pool.query(
+    `SELECT * FROM columns WHERE status = 'reconciliated' AND table_id = $1 ORDER BY id`,
+    [tableId]
+  );
+  return res.rows;
+}
+
+export async function createColumn(tableId, name, status = "empty", context = {}, 
+  isEntity = false, metadata = [], annotationMeta = {}, sourceColumnId = null) {
   const res = await pool.query(
     `INSERT INTO columns 
-      (table_id, name, status, context, is_entity, metadata, annotation_meta)
-     VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`,
-    [tableId, name, status, JSON.stringify(context), isEntity, JSON.stringify(metadata), JSON.stringify(annotationMeta)]
+      (table_id, name, status, context, is_entity, metadata, annotation_meta, source_column_id)
+     VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *`,
+    [tableId, name, status, JSON.stringify(context), isEntity, 
+      JSON.stringify(metadata), JSON.stringify(annotationMeta), sourceColumnId]
   );
   return res.rows[0];
 }
@@ -49,12 +72,13 @@ export async function updateColumnName(id, name) {
   return res.rows[0];
 }
 
-export async function updateReconciliationColumn(id, status = "reconciliated", context = {}, isEntity = false, metadata = [], annotationMeta = {}) {
+export async function updateReconciliationColumn(id, status = "reconciliated", context = {}, 
+  isEntity = false, metadata = [], annotationMeta = {}, sourceColumnId = null) {
   const res = await pool.query(
     `UPDATE columns 
-     SET status = $1, context = $2, is_entity = $3, metadata = $4, annotation_meta = $5
-     WHERE id = $6 RETURNING *`,
-    [status, JSON.stringify(context), isEntity, JSON.stringify(metadata), JSON.stringify(annotationMeta),id]
+     SET status = $1, context = $2, is_entity = $3, metadata = $4, annotation_meta = $5, source_column_id = $6
+     WHERE id = $7 RETURNING *`,
+    [status, JSON.stringify(context), isEntity, JSON.stringify(metadata), JSON.stringify(annotationMeta), sourceColumnId, id]
   );
   return res.rows[0];
 }
@@ -173,3 +197,4 @@ export async function getMetadataByColumnId(columnId) {
   if (!res.rows.length) return null;
   return res.rows[0].metadata;
 }
+

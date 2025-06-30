@@ -1,11 +1,10 @@
 import fs from 'fs';
 
-const template = JSON.parse(fs.readFileSync('126.json', 'utf-8'));
+const template = JSON.parse(fs.readFileSync('./test/data/3.json', 'utf-8'));
 const newRows = {};
 const columnNames = Object.keys(template.columns);
 
 function generateMetadata(colName, i) {
-  // Esempio: solo per alcune colonne mettiamo metadati "ricchi"
   if (colName === "﻿buyer" || colName === "country" || colName === "locality") {
     return [
       {
@@ -28,7 +27,6 @@ function generateMetadata(colName, i) {
       }
     ];
   }
-  // Per le altre colonne, metadati minimi o vuoti
   return [];
 }
 
@@ -50,5 +48,4 @@ for (let i = 0; i < 10000; i++) {
 
 template.rows = newRows;
 
-fs.writeFileSync('126_big.json', JSON.stringify(template, null, 2));
-console.log('File 126_big.json creato con 10.000 righe e metadata!');
+fs.writeFileSync('./test/data/4.json', JSON.stringify(template, null, 2));

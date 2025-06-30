@@ -28,18 +28,18 @@ export async function getResultById(id) {
   return res.rows[0];
 }
 
-export async function getBestCandidateInfoByCellId(cellId) {
+export async function getMatchInfoByCellId(cellId) {
   const res = await pool.query(
     `
-    SELECT cand AS candidate
+    SELECT cand AS match_info
     FROM cells,
          jsonb_array_elements(candidates) AS cand
     WHERE id = $1
-      AND cand->'name'->>'uri' = (SELECT match_id FROM cells WHERE id = $1)
+      AND cand->>'id' = (SELECT match_id FROM cells WHERE id = $1)
     `,
     [cellId]
   );
-  return res.rows[0]?.candidate || null;
+  return res.rows[0]?.match_info || null;
 }
 
 export async function countResultsByColumnId(columnId) {
