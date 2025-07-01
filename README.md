@@ -50,11 +50,17 @@ Sono definiti per:
 La cartella [db](/db/) è così composta:
 
 ├── .env
+
 ├── users.js
+
 ├── datasets.js
+
 ├── index.js
+
 ├── tables.js
+
 ├── columns.js
+
 ├── cells.js
 
 
@@ -69,7 +75,7 @@ Punto d’ingresso del modulo database. Si occupa di:
 - esportare `pool` per l’uso diretto se necessario,
 - esportare tutti i moduli (`users.js`, `datasets.js`, `tables.js`, `column.js`, `cells.js`).
 
-###📦 Moduli dedicati
+### 📦 `Moduli dedicati`
 Ogni entità ha un modulo dedicato con metodi per l'esecuzione di query e funzioni di supporto.
 
 ## 🧪 Testing e benchmark
@@ -99,7 +105,6 @@ I risultati mostrano ottime performance su ogni tipologia di query, eccetto per 
 2. **Installa le dipendenze Node.js**
    ```
     npm install
-   ```
    ```
 3. **Configura correttamente il file .env**
    ```
